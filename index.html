@@ -1,0 +1,3000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4eee4">
+<meta name="description" content="An anniversary memory journal made with SpecialPages.">
+<title>For Us — An Anniversary Journal</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+:root{
+  --paper:#f4eee4;
+  --paper2:#eee4d4;
+  --ink:#2d2522;
+  --muted:#786b63;
+  --wine:#7d3045;
+  --wine2:#a94e68;
+  --blush:#dca3a5;
+  --cream:#fffaf2;
+  --gold:#b08a4f;
+  --sage:#6f806e;
+  --line:rgba(45,37,34,.14);
+  --shadow:0 25px 70px rgba(69,47,35,.15);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 15%,rgba(220,163,165,.18),transparent 23%),
+    radial-gradient(circle at 90% 40%,rgba(176,138,79,.11),transparent 22%),
+    var(--paper);
+  font-family:var(--sans);
+  overflow-x:hidden;
+}
+body.no-scroll{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img,video{max-width:100%}
+::selection{background:var(--blush);color:#fff}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:50;
+  opacity:.16;
+  background-image:
+    repeating-linear-gradient(0deg,rgba(65,44,31,.025) 0 1px,transparent 1px 4px),
+    repeating-linear-gradient(90deg,rgba(65,44,31,.018) 0 1px,transparent 1px 6px);
+}
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  background:var(--paper);
+  transition:opacity .8s,visibility .8s;
+}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader-inner{text-align:center}
+.loader-heart{
+  color:var(--wine);
+  font:72px var(--serif);
+  animation:heartbeat 1.2s infinite;
+}
+.loader-title{
+  margin-top:12px;
+  font:italic 26px var(--serif);
+}
+.loader-small{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+@keyframes heartbeat{
+  50%{transform:scale(1.12)}
+}
+.site-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:900;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 5vw;
+  transition:.3s;
+}
+.site-header.stuck{
+  background:rgba(244,238,228,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 5px 30px rgba(69,47,35,.06);
+}
+.logo{
+  font:italic 27px var(--serif);
+}
+.logo small{
+  display:block;
+  margin-top:-3px;
+  font:7px var(--sans);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+.nav a{
+  position:relative;
+  font-size:9px;
+  letter-spacing:1.7px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.nav a:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:100%;
+  bottom:-6px;
+  height:1px;
+  background:var(--wine);
+  transition:.3s;
+}
+.nav a:hover:after{right:0}
+.menu{
+  display:none;
+  width:43px;
+  height:43px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:transparent;
+  color:var(--ink);
+}
+.mobile-menu{
+  position:fixed;
+  inset:0;
+  z-index:850;
+  display:grid;
+  place-items:center;
+  background:var(--paper);
+  opacity:0;
+  visibility:hidden;
+  transition:.35s;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu-inner{
+  display:grid;
+  gap:20px;
+  text-align:center;
+}
+.mobile-menu a{font:38px var(--serif)}
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1200;
+  height:3px;
+  width:0;
+  background:var(--wine);
+}
+.hero{
+  position:relative;
+  min-height:100svh;
+  padding:140px 5vw 70px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+.hero-paper{
+  position:absolute;
+  width:min(1080px,88vw);
+  height:78%;
+  border:1px solid var(--line);
+  background:rgba(255,250,242,.72);
+  box-shadow:var(--shadow);
+  transform:rotate(-1.2deg);
+}
+.hero-paper:before{
+  content:"";
+  position:absolute;
+  inset:15px;
+  border:1px dashed rgba(125,48,69,.2);
+}
+.tape{
+  position:absolute;
+  width:120px;
+  height:35px;
+  background:rgba(218,189,143,.58);
+  box-shadow:0 5px 12px rgba(69,47,35,.08);
+}
+.tape.one{top:12%;left:12%;transform:rotate(-9deg)}
+.tape.two{top:10%;right:12%;transform:rotate(8deg)}
+.hero-content{
+  position:relative;
+  z-index:3;
+  width:min(820px,90vw);
+  text-align:center;
+}
+.hero-stamp{
+  display:inline-grid;
+  place-items:center;
+  width:82px;
+  height:82px;
+  border:1px solid var(--wine);
+  border-radius:50%;
+  color:var(--wine);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transform:rotate(-8deg);
+}
+.hero-kicker{
+  margin-top:25px;
+  color:var(--wine);
+  font-size:9px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+.hero h1{
+  margin:20px 0 18px;
+  font:400 clamp(68px,10vw,128px)/.88 var(--serif);
+}
+.hero h1 em{color:var(--wine)}
+.hero-sub{
+  width:min(560px,100%);
+  margin:auto;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:30px;
+}
+.btn{
+  min-height:45px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px;
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.3s;
+}
+.btn:hover{
+  background:var(--ink);
+  color:var(--paper);
+  transform:translateY(-3px);
+}
+.btn.fill{
+  background:var(--wine);
+  color:#fff;
+  border-color:var(--wine);
+}
+.hero-note{
+  margin-top:28px;
+  color:var(--muted);
+  font:italic 15px var(--serif);
+}
+.floating-polaroid{
+  position:absolute;
+  z-index:4;
+  width:170px;
+  padding:10px 10px 28px;
+  background:#fffdf8;
+  box-shadow:0 20px 50px rgba(69,47,35,.18);
+}
+.floating-polaroid img{
+  width:100%;
+  height:185px;
+  object-fit:cover;
+  display:block;
+}
+.floating-polaroid span{
+  position:absolute;
+  left:13px;
+  bottom:8px;
+  font:italic 13px var(--serif);
+  color:#62564f;
+}
+.float-a{left:4%;top:25%;transform:rotate(-8deg);animation:floatA 6s ease-in-out infinite}
+.float-b{right:4%;top:27%;transform:rotate(7deg);animation:floatB 7s ease-in-out infinite}
+@keyframes floatA{50%{transform:rotate(-5deg) translateY(-15px)}}
+@keyframes floatB{50%{transform:rotate(4deg) translateY(14px)}}
+.section{
+  position:relative;
+  padding:125px 5vw;
+  scroll-margin-top:80px;
+}
+.section-head{
+  width:min(760px,92vw);
+  margin:0 auto 65px;
+  text-align:center;
+}
+.section-number{
+  color:var(--wine);
+  font-size:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+.section-head h2{
+  margin:15px 0;
+  font:400 clamp(54px,8vw,94px)/.9 var(--serif);
+}
+.section-head p{
+  width:min(590px,100%);
+  margin:auto;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+.intro-note{
+  width:min(930px,92vw);
+  margin:0 auto 85px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  background:var(--cream);
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+}
+.intro-note-text{
+  padding:55px;
+}
+.intro-note-text h3{
+  margin:0 0 14px;
+  font:italic 38px var(--serif);
+}
+.intro-note-text p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+.intro-note-side{
+  padding:45px;
+  display:grid;
+  place-items:center;
+  border-left:1px dashed var(--line);
+  background:#eee3d2;
+}
+.postmark{
+  width:140px;
+  height:140px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--wine);
+  border-radius:50%;
+  color:var(--wine);
+  text-align:center;
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transform:rotate(11deg);
+}
+.postmark strong{
+  display:block;
+  margin-bottom:6px;
+  font:italic 29px var(--serif);
+  letter-spacing:0;
+  text-transform:none;
+}
+.photo-grid{
+  width:min(1120px,94vw);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:22px;
+}
+.photo-card{
+  position:relative;
+  grid-column:span 4;
+  padding:10px 10px 18px;
+  background:#fffdf8;
+  box-shadow:0 18px 45px rgba(69,47,35,.13);
+  cursor:pointer;
+  transition:transform .45s ease,box-shadow .45s ease;
+}
+.photo-card:nth-child(1){grid-column:span 7;transform:rotate(-1.4deg)}
+.photo-card:nth-child(2){grid-column:span 5;transform:rotate(1.7deg)}
+.photo-card:nth-child(3){transform:rotate(1.1deg)}
+.photo-card:nth-child(4){transform:rotate(-1.5deg)}
+.photo-card:nth-child(5){transform:rotate(.8deg)}
+.photo-card:nth-child(6){grid-column:span 7;transform:rotate(1.1deg)}
+.photo-card:nth-child(7){grid-column:span 5;transform:rotate(-1deg)}
+.photo-card:nth-child(8){grid-column:span 12;transform:rotate(.3deg)}
+.photo-card:hover{
+  z-index:5;
+  transform:rotate(0deg) translateY(-10px) scale(1.015);
+  box-shadow:0 30px 70px rgba(69,47,35,.2);
+}
+.photo-card img{
+  width:100%;
+  height:330px;
+  display:block;
+  object-fit:cover;
+}
+.photo-card:nth-child(1) img,
+.photo-card:nth-child(2) img,
+.photo-card:nth-child(6) img{height:470px}
+.photo-card:nth-child(8) img{height:430px}
+.photo-caption{
+  padding:13px 5px 0;
+  text-align:center;
+}
+.photo-caption strong{
+  display:block;
+  font:italic 22px var(--serif);
+  font-weight:400;
+}
+.photo-caption span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:7px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.pin{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--wine);
+  box-shadow:0 4px 8px rgba(69,47,35,.18);
+  transform:translateX(-50%);
+}
+.filmstrip{
+  width:min(1120px,94vw);
+  margin:auto;
+  padding:24px;
+  background:#28211f;
+  box-shadow:var(--shadow);
+}
+.filmstrip-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+  color:#e8ddd2;
+}
+.filmstrip-top span{
+  font-size:7px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.film-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+.film-card{
+  position:relative;
+  padding:16px;
+  background:#f3eadc;
+}
+.film-card:before,
+.film-card:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:13px;
+  background:repeating-linear-gradient(90deg,transparent 0 18px,#28211f 18px 30px);
+}
+.film-card:before{top:-13px}
+.film-card:after{bottom:-13px}
+.film-card video{
+  width:100%;
+  display:block;
+  aspect-ratio:16/10;
+  object-fit:cover;
+  background:#111;
+}
+.film-label{
+  padding-top:15px;
+  color:#4c4039;
+}
+.film-label b{
+  display:block;
+  font:italic 26px var(--serif);
+  font-weight:400;
+}
+.film-label small{
+  color:#806f65;
+  font-size:7px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.envelope-section{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background:#e9decd;
+  overflow:hidden;
+}
+.envelope-stage{
+  position:relative;
+  width:min(820px,92vw);
+  text-align:center;
+}
+.envelope-title{
+  margin-bottom:45px;
+  font:italic 52px var(--serif);
+}
+.envelope{
+  position:relative;
+  width:min(560px,90vw);
+  height:360px;
+  margin:auto;
+  cursor:pointer;
+  perspective:1000px;
+}
+.envelope-back{
+  position:absolute;
+  inset:0;
+  background:#b77a7e;
+  box-shadow:0 30px 70px rgba(69,47,35,.22);
+}
+.envelope-paper{
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:4%;
+  height:83%;
+  padding:35px;
+  background:#fffaf1;
+  box-shadow:0 15px 35px rgba(69,47,35,.18);
+  transform:translateY(18%);
+  transition:1s cubic-bezier(.2,.8,.2,1);
+  z-index:2;
+}
+.envelope.open .envelope-paper{transform:translateY(-42%)}
+.envelope-paper h3{
+  margin:0 0 13px;
+  font:italic 35px var(--serif);
+  color:var(--wine);
+}
+.envelope-paper p{
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+}
+.envelope-flap{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  clip-path:polygon(0 0,100% 0,50% 58%);
+  background:#c4878b;
+  transform-origin:top;
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+.envelope.open .envelope-flap{transform:rotateX(180deg);z-index:1}
+.envelope-front{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);
+  background:#ad6f74;
+}
+.envelope-seal{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:50%;
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--wine);
+  color:#fff;
+  transform:translate(-50%,-50%);
+  transition:.6s;
+}
+.envelope.open .envelope-seal{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+.envelope-help{
+  margin-top:55px;
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.sound-section{background:var(--cream)}
+.music-grid{
+  width:min(1050px,94vw);
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.music-card{
+  padding:35px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  box-shadow:var(--shadow);
+}
+.cassette{
+  position:relative;
+  width:250px;
+  height:145px;
+  margin:0 auto 30px;
+  padding:17px;
+  border:1px solid #bcae9e;
+  border-radius:12px;
+  background:#e6d7c3;
+  box-shadow:0 13px 30px rgba(69,47,35,.18);
+}
+.cassette-label{
+  height:62px;
+  display:grid;
+  place-items:center;
+  background:#fff9ed;
+  border:1px dashed #bcae9e;
+  color:var(--wine);
+  font:italic 18px var(--serif);
+}
+.reel{
+  position:absolute;
+  bottom:16px;
+  width:31px;
+  height:31px;
+  border:5px dotted #76675d;
+  border-radius:50%;
+  background:#d4c3ad;
+}
+.reel.left{left:55px}
+.reel.right{right:55px}
+.music-card.playing .cassette{
+  animation:cassetteFloat 2s ease-in-out infinite;
+}
+@keyframes cassetteFloat{50%{transform:translateY(-4px) rotate(.5deg)}}
+.music-card h3{
+  margin:0;
+  text-align:center;
+  font:italic 32px var(--serif);
+}
+.music-card p{
+  margin:7px 0 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.music-card audio{width:100%}
+.music-use{
+  display:block;
+  margin:14px auto 0;
+  border:1px solid var(--wine);
+  color:var(--wine);
+  background:transparent;
+  padding:9px 15px;
+  font-size:7px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.letter{
+  width:min(850px,92vw);
+  margin:auto;
+  padding:75px;
+  background:#fffaf1;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  position:relative;
+}
+.letter:before,
+.letter:after{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:35px;
+  background:rgba(218,189,143,.46);
+}
+.letter:before{top:-16px;left:50%;transform:translateX(-50%) rotate(-2deg)}
+.letter:after{bottom:-16px;left:50%;transform:translateX(-50%) rotate(2deg)}
+.letter-top{
+  color:var(--wine);
+  font-size:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  text-align:center;
+}
+.letter h2{
+  margin:20px 0 27px;
+  text-align:center;
+  font:400 clamp(52px,7vw,86px)/.9 var(--serif);
+}
+.letter h2 em{color:var(--wine)}
+.letter-body{
+  width:min(570px,100%);
+  margin:auto;
+  color:#71655e;
+  font-size:12px;
+  line-height:2;
+  text-align:center;
+}
+.signature{
+  margin-top:35px;
+  text-align:center;
+  color:var(--wine);
+  font:italic 29px var(--serif);
+}
+.timeline{
+  width:min(900px,92vw);
+  margin:auto;
+  position:relative;
+}
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:var(--line);
+}
+.timeline-item{
+  position:relative;
+  width:50%;
+  padding:20px 55px 35px 0;
+}
+.timeline-item:nth-child(even){
+  margin-left:50%;
+  padding:20px 0 35px 55px;
+}
+.timeline-card{
+  padding:25px;
+  background:var(--cream);
+  border:1px solid var(--line);
+  box-shadow:0 15px 35px rgba(69,47,35,.08);
+}
+.timeline-date{
+  color:var(--wine);
+  font-size:7px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.timeline-card h3{
+  margin:7px 0;
+  font:italic 30px var(--serif);
+}
+.timeline-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.8;
+}
+.timeline-dot{
+  position:absolute;
+  right:-7px;
+  top:32px;
+  width:14px;
+  height:14px;
+  border:3px solid var(--paper);
+  border-radius:50%;
+  background:var(--wine);
+}
+.timeline-item:nth-child(even) .timeline-dot{
+  left:-7px;
+  right:auto;
+}
+.final{
+  position:relative;
+  min-height:90vh;
+  display:grid;
+  place-items:center;
+  padding:100px 5vw;
+  text-align:center;
+  background:
+    linear-gradient(rgba(125,48,69,.86),rgba(125,48,69,.86)),
+    url("hero.jpg") center/cover;
+  color:#fff;
+}
+.final:before{
+  content:"";
+  position:absolute;
+  inset:20px;
+  border:1px solid rgba(255,255,255,.35);
+}
+.final-content{position:relative;z-index:2}
+.final-kicker{
+  font-size:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  opacity:.7;
+}
+.final h2{
+  margin:20px 0;
+  font:italic 400 clamp(65px,10vw,125px)/.82 var(--serif);
+}
+.final p{
+  width:min(560px,92vw);
+  margin:0 auto 28px;
+  font-size:12px;
+  line-height:1.9;
+  opacity:.82;
+}
+.final .btn{border-color:#fff;color:#fff}
+.final .btn:hover{background:#fff;color:var(--wine)}
+.footer{
+  padding:35px 5vw 55px;
+  background:#2d2522;
+  color:#e9dfd5;
+  text-align:center;
+}
+.footer-logo{font:italic 30px var(--serif)}
+.footer p{
+  margin:7px 0 0;
+  color:#9f9188;
+  font-size:7px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:grid;
+  place-items:center;
+  padding:25px;
+  background:rgba(35,25,22,.9);
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+}
+.modal.open{opacity:1;visibility:visible}
+.modal img{
+  max-width:94vw;
+  max-height:88vh;
+  padding:10px;
+  background:#fffdf8;
+  box-shadow:0 30px 90px rgba(0,0,0,.45);
+}
+.modal-close{
+  position:absolute;
+  right:20px;
+  top:20px;
+  width:48px;
+  height:48px;
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:50%;
+  background:transparent;
+  color:#fff;
+  font-size:22px;
+}
+.music-float{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:700;
+  min-height:42px;
+  padding:0 15px;
+  border:1px solid var(--wine);
+  border-radius:999px;
+  background:rgba(255,250,242,.9);
+  color:var(--wine);
+  font-size:7px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .75s ease,transform .75s ease;
+}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:950px){
+  .nav{display:none}
+  .menu{display:block}
+  .floating-polaroid{width:115px}
+  .floating-polaroid img{height:125px}
+  .float-a{left:1%;top:23%}
+  .float-b{right:1%;top:25%}
+  .intro-note{grid-template-columns:1fr}
+  .intro-note-side{border-left:0;border-top:1px dashed var(--line);min-height:230px}
+  .photo-grid{grid-template-columns:repeat(2,1fr)}
+  .photo-card,
+  .photo-card:nth-child(1),
+  .photo-card:nth-child(2),
+  .photo-card:nth-child(3),
+  .photo-card:nth-child(4),
+  .photo-card:nth-child(5),
+  .photo-card:nth-child(6),
+  .photo-card:nth-child(7),
+  .photo-card:nth-child(8){grid-column:span 1}
+  .photo-card:nth-child(1),
+  .photo-card:nth-child(6),
+  .photo-card:nth-child(8){grid-column:span 2}
+  .film-row,.music-grid{grid-template-columns:1fr}
+  .timeline:before{left:8px}
+  .timeline-item,
+  .timeline-item:nth-child(even){
+    width:100%;
+    margin-left:0;
+    padding:18px 0 28px 38px;
+  }
+  .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot{left:1px;right:auto}
+}
+@media(max-width:600px){
+  .site-header{padding:16px 18px}
+  .logo{font-size:25px}
+  .hero{padding-top:120px}
+  .hero-paper{height:75%}
+  .tape{width:80px;height:25px}
+  .hero h1{font-size:67px}
+  .hero-sub{font-size:11px}
+  .floating-polaroid{width:73px;padding:6px 6px 18px}
+  .floating-polaroid img{height:80px}
+  .floating-polaroid span{left:8px;bottom:4px;font-size:9px}
+  .section{padding:90px 18px}
+  .intro-note-text{padding:30px}
+  .photo-grid{gap:12px}
+  .photo-card{padding:7px 7px 14px}
+  .photo-card img,
+  .photo-card:nth-child(1) img,
+  .photo-card:nth-child(2) img,
+  .photo-card:nth-child(6) img,
+  .photo-card:nth-child(8) img{height:245px}
+  .photo-caption strong{font-size:18px}
+  .filmstrip{padding:14px}
+  .film-card{padding:9px}
+  .envelope-title{font-size:40px}
+  .envelope{height:270px}
+  .envelope-paper{padding:22px}
+  .envelope-paper h3{font-size:27px}
+  .letter{padding:45px 24px}
+  .letter h2{font-size:54px}
+  .cassette{width:210px}
+  .reel.left{left:42px}
+  .reel.right{right:42px}
+  .final:before{inset:10px}
+  .music-float{right:10px;bottom:10px}
+}
+
+.journal-wide{max-width:1280px;margin-inline:auto}
+.journal-narrow{max-width:760px;margin-inline:auto}
+.journal-centered{text-align:center}
+.journal-left{text-align:left}
+.journal-border{border:1px solid var(--line)}
+.journal-dashed{border:1px dashed var(--line)}
+.journal-shadow{box-shadow:var(--shadow)}
+.journal-soft{background:rgba(255,250,242,.55)}
+.journal-wine{color:var(--wine)}
+.journal-muted{color:var(--muted)}
+.journal-serif{font-family:var(--serif)}
+.journal-uppercase{text-transform:uppercase;letter-spacing:2px}
+.journal-italic{font-style:italic}
+.journal-round{border-radius:999px}
+.journal-square{border-radius:0}
+.journal-paper{background:var(--paper)}
+.journal-cream{background:var(--cream)}
+.journal-sage{background:#e2e6dd}
+.journal-blush{background:#ecd5d4}
+.journal-gold{background:#eee2c9}
+.journal-wine-bg{background:#7d3045;color:#fff}
+.journal-rule{height:1px;background:var(--line);width:100%}
+.journal-spacer-sm{height:20px}
+.journal-spacer-md{height:40px}
+.journal-spacer-lg{height:70px}
+.journal-fade{opacity:.75}
+.journal-tight{letter-spacing:-.02em}
+.journal-relaxed{letter-spacing:.04em}
+.journal-display{font-family:var(--serif);font-weight:400}
+.journal-sans{font-family:var(--sans)}
+.journal-inline{display:inline-block}
+.journal-block{display:block}
+.journal-hidden{display:none}
+.journal-visible{display:block}
+.journal-flex{display:flex}
+.journal-grid{display:grid}
+.journal-center{align-items:center;justify-content:center}
+.journal-relative{position:relative}
+.journal-absolute{position:absolute}
+.journal-full{width:100%}
+.journal-auto{margin-inline:auto}
+.journal-pointer{cursor:pointer}
+.journal-select-none{user-select:none}
+.journal-no-overflow{overflow:hidden}
+.journal-cover{object-fit:cover}
+.journal-contain{object-fit:contain}
+.journal-border-top{border-top:1px solid var(--line)}
+.journal-border-bottom{border-bottom:1px solid var(--line)}
+.journal-border-left{border-left:1px solid var(--line)}
+.journal-border-right{border-right:1px solid var(--line)}
+.journal-padding-sm{padding:12px}
+.journal-padding-md{padding:24px}
+.journal-padding-lg{padding:42px}
+.journal-margin-sm{margin:12px}
+.journal-margin-md{margin:24px}
+.journal-margin-lg{margin:42px}
+.journal-radius-sm{border-radius:8px}
+.journal-radius-md{border-radius:16px}
+.journal-radius-lg{border-radius:28px}
+.journal-detail-1{
+  max-width:45rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-2{
+  max-width:50rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-3{
+  max-width:55rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-4{
+  max-width:60rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-5{
+  max-width:65rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-6{
+  max-width:70rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-7{
+  max-width:75rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-8{
+  max-width:80rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-9{
+  max-width:40rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-10{
+  max-width:45rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-11{
+  max-width:50rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-12{
+  max-width:55rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-13{
+  max-width:60rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-14{
+  max-width:65rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-15{
+  max-width:70rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-16{
+  max-width:75rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-17{
+  max-width:80rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-18{
+  max-width:40rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-19{
+  max-width:45rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-20{
+  max-width:50rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-21{
+  max-width:55rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-22{
+  max-width:60rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-23{
+  max-width:65rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-24{
+  max-width:70rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-25{
+  max-width:75rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-26{
+  max-width:80rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-27{
+  max-width:40rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-28{
+  max-width:45rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-29{
+  max-width:50rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-30{
+  max-width:55rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-31{
+  max-width:60rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-32{
+  max-width:65rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-33{
+  max-width:70rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-34{
+  max-width:75rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-35{
+  max-width:80rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-36{
+  max-width:40rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-37{
+  max-width:45rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-38{
+  max-width:50rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-39{
+  max-width:55rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-40{
+  max-width:60rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-41{
+  max-width:65rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-42{
+  max-width:70rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-43{
+  max-width:75rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-44{
+  max-width:80rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-45{
+  max-width:40rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-46{
+  max-width:45rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-47{
+  max-width:50rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-48{
+  max-width:55rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-49{
+  max-width:60rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-50{
+  max-width:65rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-51{
+  max-width:70rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-52{
+  max-width:75rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-53{
+  max-width:80rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-54{
+  max-width:40rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-55{
+  max-width:45rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-56{
+  max-width:50rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-57{
+  max-width:55rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-58{
+  max-width:60rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-59{
+  max-width:65rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-60{
+  max-width:70rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-61{
+  max-width:75rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-62{
+  max-width:80rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-63{
+  max-width:40rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-64{
+  max-width:45rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-65{
+  max-width:50rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-66{
+  max-width:55rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-67{
+  max-width:60rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-68{
+  max-width:65rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-69{
+  max-width:70rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-70{
+  max-width:75rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-71{
+  max-width:80rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-72{
+  max-width:40rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-73{
+  max-width:45rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-74{
+  max-width:50rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-75{
+  max-width:55rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-76{
+  max-width:60rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-77{
+  max-width:65rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-78{
+  max-width:70rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-79{
+  max-width:75rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-80{
+  max-width:80rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-81{
+  max-width:40rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-82{
+  max-width:45rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-83{
+  max-width:50rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-84{
+  max-width:55rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-85{
+  max-width:60rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-86{
+  max-width:65rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-87{
+  max-width:70rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-88{
+  max-width:75rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-89{
+  max-width:80rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-90{
+  max-width:40rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-91{
+  max-width:45rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-92{
+  max-width:50rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-93{
+  max-width:55rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-94{
+  max-width:60rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-95{
+  max-width:65rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-96{
+  max-width:70rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-97{
+  max-width:75rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-98{
+  max-width:80rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-99{
+  max-width:40rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-100{
+  max-width:45rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-101{
+  max-width:50rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-102{
+  max-width:55rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-103{
+  max-width:60rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-104{
+  max-width:65rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-105{
+  max-width:70rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-106{
+  max-width:75rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-107{
+  max-width:80rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-108{
+  max-width:40rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-109{
+  max-width:45rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-110{
+  max-width:50rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-111{
+  max-width:55rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-112{
+  max-width:60rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-113{
+  max-width:65rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-114{
+  max-width:70rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-115{
+  max-width:75rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-116{
+  max-width:80rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-117{
+  max-width:40rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-118{
+  max-width:45rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-119{
+  max-width:50rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-120{
+  max-width:55rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-121{
+  max-width:60rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-122{
+  max-width:65rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-123{
+  max-width:70rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-124{
+  max-width:75rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-125{
+  max-width:80rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-126{
+  max-width:40rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-127{
+  max-width:45rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-128{
+  max-width:50rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-129{
+  max-width:55rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-130{
+  max-width:60rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-131{
+  max-width:65rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-132{
+  max-width:70rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-133{
+  max-width:75rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-134{
+  max-width:80rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-135{
+  max-width:40rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-136{
+  max-width:45rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-137{
+  max-width:50rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-138{
+  max-width:55rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-139{
+  max-width:60rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-140{
+  max-width:65rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-141{
+  max-width:70rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-142{
+  max-width:75rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-143{
+  max-width:80rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-144{
+  max-width:40rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-145{
+  max-width:45rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-146{
+  max-width:50rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-147{
+  max-width:55rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-148{
+  max-width:60rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-149{
+  max-width:65rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-150{
+  max-width:70rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-151{
+  max-width:75rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-152{
+  max-width:80rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-153{
+  max-width:40rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-154{
+  max-width:45rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-155{
+  max-width:50rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-156{
+  max-width:55rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-157{
+  max-width:60rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-158{
+  max-width:65rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-159{
+  max-width:70rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-160{
+  max-width:75rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-161{
+  max-width:80rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-162{
+  max-width:40rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-163{
+  max-width:45rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-164{
+  max-width:50rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-165{
+  max-width:55rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-166{
+  max-width:60rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-167{
+  max-width:65rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-168{
+  max-width:70rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-169{
+  max-width:75rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-170{
+  max-width:80rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-171{
+  max-width:40rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-172{
+  max-width:45rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-173{
+  max-width:50rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-174{
+  max-width:55rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-175{
+  max-width:60rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-176{
+  max-width:65rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-177{
+  max-width:70rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-178{
+  max-width:75rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-179{
+  max-width:80rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-180{
+  max-width:40rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-181{
+  max-width:45rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-182{
+  max-width:50rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-183{
+  max-width:55rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-184{
+  max-width:60rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-185{
+  max-width:65rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-186{
+  max-width:70rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-187{
+  max-width:75rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-188{
+  max-width:80rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-189{
+  max-width:40rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-190{
+  max-width:45rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-191{
+  max-width:50rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-192{
+  max-width:55rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-193{
+  max-width:60rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-194{
+  max-width:65rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-195{
+  max-width:70rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-196{
+  max-width:75rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-197{
+  max-width:80rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-198{
+  max-width:40rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-199{
+  max-width:45rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-200{
+  max-width:50rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-201{
+  max-width:55rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-202{
+  max-width:60rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-203{
+  max-width:65rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-204{
+  max-width:70rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-205{
+  max-width:75rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-206{
+  max-width:80rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-207{
+  max-width:40rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-208{
+  max-width:45rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-209{
+  max-width:50rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-210{
+  max-width:55rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-211{
+  max-width:60rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-212{
+  max-width:65rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-213{
+  max-width:70rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-214{
+  max-width:75rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-215{
+  max-width:80rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-216{
+  max-width:40rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-217{
+  max-width:45rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-218{
+  max-width:50rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-219{
+  max-width:55rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-220{
+  max-width:60rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-221{
+  max-width:65rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-222{
+  max-width:70rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-223{
+  max-width:75rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-224{
+  max-width:80rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-225{
+  max-width:40rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-226{
+  max-width:45rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-227{
+  max-width:50rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-228{
+  max-width:55rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-229{
+  max-width:60rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-230{
+  max-width:65rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-231{
+  max-width:70rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-232{
+  max-width:75rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-233{
+  max-width:80rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-234{
+  max-width:40rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-235{
+  max-width:45rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-236{
+  max-width:50rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-237{
+  max-width:55rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-238{
+  max-width:60rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-239{
+  max-width:65rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-240{
+  max-width:70rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-241{
+  max-width:75rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-242{
+  max-width:80rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-243{
+  max-width:40rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-244{
+  max-width:45rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-245{
+  max-width:50rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-246{
+  max-width:55rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-247{
+  max-width:60rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-248{
+  max-width:65rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-249{
+  max-width:70rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-250{
+  max-width:75rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-251{
+  max-width:80rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-252{
+  max-width:40rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-253{
+  max-width:45rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-254{
+  max-width:50rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-255{
+  max-width:55rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-256{
+  max-width:60rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-257{
+  max-width:65rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-258{
+  max-width:70rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-259{
+  max-width:75rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-260{
+  max-width:80rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-261{
+  max-width:40rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-262{
+  max-width:45rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-263{
+  max-width:50rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-264{
+  max-width:55rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-265{
+  max-width:60rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-266{
+  max-width:65rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-267{
+  max-width:70rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-268{
+  max-width:75rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-269{
+  max-width:80rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-270{
+  max-width:40rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-271{
+  max-width:45rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-272{
+  max-width:50rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-273{
+  max-width:55rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-274{
+  max-width:60rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-275{
+  max-width:65rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-276{
+  max-width:70rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-277{
+  max-width:75rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-278{
+  max-width:80rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-279{
+  max-width:40rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-280{
+  max-width:45rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-281{
+  max-width:50rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-282{
+  max-width:55rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-283{
+  max-width:60rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-284{
+  max-width:65rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-285{
+  max-width:70rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-286{
+  max-width:75rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-287{
+  max-width:80rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-288{
+  max-width:40rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-289{
+  max-width:45rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-290{
+  max-width:50rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-291{
+  max-width:55rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-292{
+  max-width:60rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-293{
+  max-width:65rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-294{
+  max-width:70rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-295{
+  max-width:75rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-296{
+  max-width:80rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-297{
+  max-width:40rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-298{
+  max-width:45rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-299{
+  max-width:50rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-300{
+  max-width:55rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-301{
+  max-width:60rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-302{
+  max-width:65rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-303{
+  max-width:70rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-304{
+  max-width:75rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-305{
+  max-width:80rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-306{
+  max-width:40rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-307{
+  max-width:45rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-308{
+  max-width:50rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-309{
+  max-width:55rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-310{
+  max-width:60rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-311{
+  max-width:65rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-312{
+  max-width:70rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-313{
+  max-width:75rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-314{
+  max-width:80rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-315{
+  max-width:40rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-316{
+  max-width:45rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-317{
+  max-width:50rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-318{
+  max-width:55rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-319{
+  max-width:60rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-320{
+  max-width:65rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-321{
+  max-width:70rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-322{
+  max-width:75rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-323{
+  max-width:80rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-324{
+  max-width:40rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-325{
+  max-width:45rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-326{
+  max-width:50rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-327{
+  max-width:55rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-328{
+  max-width:60rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-329{
+  max-width:65rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-330{
+  max-width:70rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-331{
+  max-width:75rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-332{
+  max-width:80rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-333{
+  max-width:40rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-334{
+  max-width:45rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-335{
+  max-width:50rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-336{
+  max-width:55rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-337{
+  max-width:60rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-338{
+  max-width:65rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-339{
+  max-width:70rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-340{
+  max-width:75rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-341{
+  max-width:80rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-342{
+  max-width:40rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-343{
+  max-width:45rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-344{
+  max-width:50rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-345{
+  max-width:55rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-346{
+  max-width:60rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-347{
+  max-width:65rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-348{
+  max-width:70rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-349{
+  max-width:75rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-350{
+  max-width:80rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-351{
+  max-width:40rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-352{
+  max-width:45rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-353{
+  max-width:50rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-354{
+  max-width:55rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-355{
+  max-width:60rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-356{
+  max-width:65rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-357{
+  max-width:70rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-358{
+  max-width:75rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-359{
+  max-width:80rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-360{
+  max-width:40rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-361{
+  max-width:45rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-362{
+  max-width:50rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-363{
+  max-width:55rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-364{
+  max-width:60rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-365{
+  max-width:65rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-366{
+  max-width:70rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-367{
+  max-width:75rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-368{
+  max-width:80rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-369{
+  max-width:40rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-370{
+  max-width:45rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-371{
+  max-width:50rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-372{
+  max-width:55rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-373{
+  max-width:60rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-374{
+  max-width:65rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-375{
+  max-width:70rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-376{
+  max-width:75rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-377{
+  max-width:80rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-378{
+  max-width:40rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-379{
+  max-width:45rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-380{
+  max-width:50rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-381{
+  max-width:55rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-382{
+  max-width:60rem;border-radius:2px;opacity:0.20;
+}
+.journal-detail-383{
+  max-width:65rem;border-radius:3px;opacity:0.22;
+}
+.journal-detail-384{
+  max-width:70rem;border-radius:4px;opacity:0.24;
+}
+.journal-detail-385{
+  max-width:75rem;border-radius:0px;opacity:0.12;
+}
+.journal-detail-386{
+  max-width:80rem;border-radius:1px;opacity:0.14;
+}
+.journal-detail-387{
+  max-width:40rem;border-radius:2px;opacity:0.16;
+}
+.journal-detail-388{
+  max-width:45rem;border-radius:3px;opacity:0.18;
+}
+.journal-detail-389{
+  max-width:50rem;border-radius:4px;opacity:0.20;
+}
+.journal-detail-390{
+  max-width:55rem;border-radius:0px;opacity:0.22;
+}
+.journal-detail-391{
+  max-width:60rem;border-radius:1px;opacity:0.24;
+}
+.journal-detail-392{
+  max-width:65rem;border-radius:2px;opacity:0.12;
+}
+.journal-detail-393{
+  max-width:70rem;border-radius:3px;opacity:0.14;
+}
+.journal-detail-394{
+  max-width:75rem;border-radius:4px;opacity:0.16;
+}
+.journal-detail-395{
+  max-width:80rem;border-radius:0px;opacity:0.18;
+}
+.journal-detail-396{
+  max-width:40rem;border-radius:1px;opacity:0.20;
+}
+.journal-detail-397{
+  max-width:45rem;border-radius:2px;opacity:0.22;
+}
+.journal-detail-398{
+  max-width:50rem;border-radius:3px;opacity:0.24;
+}
+.journal-detail-399{
+  max-width:55rem;border-radius:4px;opacity:0.12;
+}
+.journal-detail-400{
+  max-width:60rem;border-radius:0px;opacity:0.14;
+}
+.journal-detail-401{
+  max-width:65rem;border-radius:1px;opacity:0.16;
+}
+.journal-detail-402{
+  max-width:70rem;border-radius:2px;opacity:0.18;
+}
+.journal-detail-403{
+  max-width:75rem;border-radius:3px;opacity:0.20;
+}
+.journal-detail-404{
+  max-width:80rem;border-radius:4px;opacity:0.22;
+}
+.journal-detail-405{
+  max-width:40rem;border-radius:0px;opacity:0.24;
+}
+.journal-detail-406{
+  max-width:45rem;border-radius:1px;opacity:0.12;
+}
+.journal-detail-407{
+  max-width:50rem;border-radius:2px;opacity:0.14;
+}
+.journal-detail-408{
+  max-width:55rem;border-radius:3px;opacity:0.16;
+}
+.journal-detail-409{
+  max-width:60rem;border-radius:4px;opacity:0.18;
+}
+.journal-detail-410{
+  max-width:65rem;border-radius:0px;opacity:0.20;
+}
+.journal-detail-411{
+  max-width:70rem;border-radius:1px;opacity:0.22;
+}
+.journal-detail-412{
+  max-width:75rem;border-radius:2px;opacity:0.24;
+}
+.journal-detail-413{
+  max-width:80rem;border-radius:3px;opacity:0.12;
+}
+.journal-detail-414{
+  max-width:40rem;border-radius:4px;opacity:0.14;
+}
+.journal-detail-415{
+  max-width:45rem;border-radius:0px;opacity:0.16;
+}
+.journal-detail-416{
+  max-width:50rem;border-radius:1px;opacity:0.18;
+}
+.journal-detail-417{
+  max-width:55rem;border-radius:2px;opacity:0.20;
+}
+.journal-tweak-1{letter-spacing:0.00em}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-heart">♡</div>
+    <div class="loader-title">A little something for you.</div>
+    <div class="loader-small">opening your anniversary journal</div>
+  </div>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<header class="site-header" id="header">
+  <a class="logo" href="#home">
+    specialpages
+    <small>made personal</small>
+  </a>
+  <nav class="nav">
+    <a href="#memories">Memories</a>
+    <a href="#films">Films</a>
+    <a href="#letter">Letter</a>
+    <a href="#music">Music</a>
+    <a href="#timeline">Timeline</a>
+  </nav>
+  <button class="menu" id="menu" type="button">☰</button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="#memories">Memories</a>
+    <a href="#films">Films</a>
+    <a href="#letter">Letter</a>
+    <a href="#music">Music</a>
+    <a href="#timeline">Timeline</a>
+  </div>
+</div>
+
+<button class="music-float" id="musicFloat" type="button">♡ choose a song</button>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="hero-paper"></div>
+  <div class="tape one"></div>
+  <div class="tape two"></div>
+
+  <div class="floating-polaroid float-a">
+    <img class="asset-image" data-name="gallery-2.jpg" alt="A memory">
+    <span>one of my favourites</span>
+  </div>
+
+  <div class="floating-polaroid float-b">
+    <img class="asset-image" data-name="gallery-4.jpg" alt="A memory">
+    <span>keep this one</span>
+  </div>
+
+  <div class="hero-content reveal">
+    <div class="hero-stamp">anniversary<br>edition</div>
+    <div class="hero-kicker">a journal of us</div>
+    <h1>Another year.<br><em>Same favourite person.</em></h1>
+    <p class="hero-sub">
+      A handmade little corner of the internet filled with photographs,
+      moving memories, songs, and all the things that are hard to say in one message.
+    </p>
+    <div class="hero-actions">
+      <a class="btn fill" href="#memories">Turn the page ↓</a>
+      <a class="btn" href="#letter">Read the letter</a>
+    </div>
+    <div class="hero-note">"I would choose this story again."</div>
+  </div>
+</section>
+
+<section class="section" id="memories">
+  <div class="section-head reveal">
+    <div class="section-number">01 · photographs</div>
+    <h2>The pages I would never skip.</h2>
+    <p>
+      Some moments become precious simply because we lived them together.
+      Tap any photograph to hold it a little closer.
+    </p>
+  </div>
+
+  <div class="intro-note reveal">
+    <div class="intro-note-text">
+      <h3>Dear favourite person,</h3>
+      <p>
+        If I could put every good day, every stupid joke, every quiet look,
+        and every tiny memory into a box, this would be that box.
+        Since I cannot, I made you this little journal instead.
+      </p>
+    </div>
+    <div class="intro-note-side">
+      <div class="postmark">
+        <div>
+          <strong>us</strong>
+          saved<br>with love<br>forever
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-grid">
+    <article class="photo-card reveal" data-photo="hero.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="hero.jpg" alt="Memory 01">
+      <div class="photo-caption">
+        <strong>The beginning</strong>
+        <span>page 01 · where it started</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="gallery-1.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="gallery-1.jpg" alt="Memory 02">
+      <div class="photo-caption">
+        <strong>That smile</strong>
+        <span>page 02 · still my weakness</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="gallery-2.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="gallery-2.jpg" alt="Memory 03">
+      <div class="photo-caption">
+        <strong>Somewhere with you</strong>
+        <span>page 03 · just us</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="gallery-3.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="gallery-3.jpg" alt="Memory 04">
+      <div class="photo-caption">
+        <strong>The little things</strong>
+        <span>page 04 · the details matter</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="gallery-4.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="gallery-4.jpg" alt="Memory 05">
+      <div class="photo-caption">
+        <strong>A good day</strong>
+        <span>page 05 · kept forever</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="memory-1.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="memory-1.jpg" alt="Memory 06">
+      <div class="photo-caption">
+        <strong>My safe place</strong>
+        <span>page 06 · always you</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="memory-2.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="memory-2.jpg" alt="Memory 07">
+      <div class="photo-caption">
+        <strong>The laughter</strong>
+        <span>page 07 · never gets old</span>
+      </div>
+    </article>
+
+    <article class="photo-card reveal" data-photo="final-photo.jpg">
+      <span class="pin"></span>
+      <img class="asset-image" data-name="final-photo.jpg" alt="Memory 08">
+      <div class="photo-caption">
+        <strong>Still my favourite</strong>
+        <span>page 08 · the story continues</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="films">
+  <div class="section-head reveal">
+    <div class="section-number">02 · moving memories</div>
+    <h2>Press play on the good days.</h2>
+    <p>
+      Photographs remember how it looked.
+      These little films remember how it felt.
+    </p>
+  </div>
+
+  <div class="filmstrip reveal">
+    <div class="filmstrip-top">
+      <span>our private film roll</span>
+      <span>01—02</span>
+    </div>
+
+    <div class="film-row">
+      <article class="film-card">
+        <video class="asset-video" data-name="clip1.mp4" controls playsinline preload="metadata"></video>
+        <div class="film-label">
+          <b>Scene one — us.</b>
+          <small>keep replaying this one</small>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <video class="asset-video" data-name="clip2.mp4" controls playsinline preload="metadata"></video>
+        <div class="film-label">
+          <b>Scene two — again.</b>
+          <small>another favourite moment</small>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="envelope-section" id="letter">
+  <div class="envelope-stage">
+    <div class="envelope-title reveal">I wrote this for you.</div>
+
+    <div class="envelope reveal" id="envelope" role="button" tabindex="0" aria-label="Open love letter">
+      <div class="envelope-back"></div>
+
+      <div class="envelope-paper">
+        <h3>To my favourite person,</h3>
+        <p>
+          Another year has passed, and somehow I still find new reasons
+          to be grateful that our paths crossed. Thank you for the ordinary
+          days that became extraordinary simply because you were there.
+          If I could go back and start the story again, I would still walk
+          toward you.
+        </p>
+      </div>
+
+      <div class="envelope-flap"></div>
+      <div class="envelope-front"></div>
+      <div class="envelope-seal">♡</div>
+    </div>
+
+    <div class="envelope-help">tap the envelope to open · tap again to close</div>
+  </div>
+</section>
+
+<section class="section sound-section" id="music">
+  <div class="section-head reveal">
+    <div class="section-number">03 · our mixtape</div>
+    <h2>Two songs for one story.</h2>
+    <p>
+      Choose the song that feels like us today.
+      The cassette comes alive while it plays.
+    </p>
+  </div>
+
+  <div class="music-grid">
+    <article class="music-card reveal">
+      <div class="cassette">
+        <div class="cassette-label">for the memories</div>
+        <span class="reel left"></span>
+        <span class="reel right"></span>
+      </div>
+      <h3>Song Two</h3>
+      <p>track 01 · press play</p>
+      <audio class="asset-audio" data-name="song2.mp3" controls preload="metadata"></audio>
+      <button class="music-use" type="button">Choose this track</button>
+    </article>
+
+    <article class="music-card reveal">
+      <div class="cassette">
+        <div class="cassette-label">our soundtrack</div>
+        <span class="reel left"></span>
+        <span class="reel right"></span>
+      </div>
+      <h3>Our Soundtrack</h3>
+      <p>track 02 · play this slowly</p>
+      <audio class="asset-audio" data-name="soundtrack.mp3" controls preload="metadata"></audio>
+      <button class="music-use" type="button">Choose this track</button>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="words">
+  <div class="letter reveal">
+    <div class="letter-top">a page worth reading twice</div>
+    <h2>Still, after everything,<br><em>it is you.</em></h2>
+    <div class="letter-body">
+      Maybe that is what an anniversary really means.
+      Not that every day was perfect, but that through every version
+      of life, there was still a person who made the whole thing feel
+      a little more like home.
+      <br><br>
+      So here is to another chapter, another hundred tiny memories,
+      another collection of photographs we have not taken yet,
+      and every ordinary day that will somehow become special later.
+    </div>
+    <div class="signature">always, me ♡</div>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="section-head reveal">
+    <div class="section-number">04 · the timeline</div>
+    <h2>How we got here.</h2>
+    <p>
+      Four little chapters from a story that is nowhere near finished.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <div class="timeline-date">chapter one</div>
+        <h3>The first hello.</h3>
+        <p>The moment that looked ordinary then and feels important now.</p>
+      </div>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <div class="timeline-date">chapter two</div>
+        <h3>The becoming.</h3>
+        <p>Two lives slowly collecting the same jokes, places and memories.</p>
+      </div>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <div class="timeline-date">chapter three</div>
+        <h3>The little things.</h3>
+        <p>The tiny habits and quiet moments that somehow became the biggest part.</p>
+      </div>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <div class="timeline-date">chapter four</div>
+        <h3>This anniversary.</h3>
+        <p>Another year finished. Another reason to say: I am glad it was you.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="final" id="final">
+  <div class="final-content reveal">
+    <div class="final-kicker">the last page · for now</div>
+    <h2>Let's keep<br>writing us.</h2>
+    <p>
+      A little journal for one person.
+      Their photographs, their songs, their memories —
+      all in one beautiful link.
+    </p>
+    <a class="btn" href="https://specialpages.in">Make a SpecialPage ↗</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-logo">specialpages</div>
+  <p>digital surprises · made personal</p>
+</footer>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <button class="modal-close" id="modalClose" type="button">×</button>
+  <img id="modalImage" alt="Expanded memory">
+</div>
+
+<script>
+
+const ZERO_WIDTH = "\u200b";
+
+function candidates(name){
+  return [name, ZERO_WIDTH + name];
+}
+
+function setImage(image){
+  const list = candidates(image.dataset.name);
+  let index = 0;
+
+  function attempt(){
+    if(index >= list.length){
+      image.style.background = "#eadfd1";
+      return;
+    }
+
+    image.src = list[index];
+    index += 1;
+  }
+
+  image.addEventListener("error",attempt);
+  attempt();
+}
+
+function setMedia(media){
+  const list = candidates(media.dataset.name);
+  let index = 0;
+
+  function attempt(){
+    if(index >= list.length){
+      return;
+    }
+
+    media.src = list[index];
+    index += 1;
+    media.load();
+  }
+
+  media.addEventListener("error",attempt);
+  attempt();
+}
+
+document.querySelectorAll(".asset-image").forEach(setImage);
+document.querySelectorAll(".asset-video").forEach(setMedia);
+document.querySelectorAll(".asset-audio").forEach(setMedia);
+
+const loader = document.getElementById("loader");
+
+window.addEventListener("load",function(){
+  setTimeout(function(){
+    loader.classList.add("hidden");
+  },650);
+});
+
+const header = document.getElementById("header");
+const progress = document.getElementById("progress");
+
+function updatePageChrome(){
+  const scrollTop = window.scrollY;
+  const scrollMax =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const percentage =
+    scrollMax > 0 ? (scrollTop / scrollMax) * 100 : 0;
+
+  progress.style.width = percentage + "%";
+  header.classList.toggle("stuck",scrollTop > 35);
+}
+
+window.addEventListener("scroll",updatePageChrome,{passive:true});
+updatePageChrome();
+
+const menuButton = document.getElementById("menu");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuButton.addEventListener("click",function(){
+  mobileMenu.classList.toggle("open");
+  document.body.classList.toggle("no-scroll");
+});
+
+mobileMenu.querySelectorAll("a").forEach(function(link){
+  link.addEventListener("click",function(){
+    mobileMenu.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  });
+});
+
+const revealObserver = new IntersectionObserver(
+  function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold:.12
+  }
+);
+
+document.querySelectorAll(".reveal").forEach(function(element){
+  revealObserver.observe(element);
+});
+
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+const modalClose = document.getElementById("modalClose");
+
+function openPhoto(name){
+  const list = candidates(name);
+  let index = 0;
+
+  modalImage.onerror = function(){
+    if(index < list.length){
+      modalImage.src = list[index];
+      index += 1;
+    }
+  };
+
+  modalImage.src = list[index];
+  index += 1;
+
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("no-scroll");
+}
+
+function closePhoto(){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("no-scroll");
+}
+
+document.querySelectorAll(".photo-card").forEach(function(card){
+  card.addEventListener("click",function(){
+    openPhoto(card.dataset.photo);
+  });
+
+  card.addEventListener("keydown",function(event){
+    if(event.key === "Enter"){
+      openPhoto(card.dataset.photo);
+    }
+  });
+});
+
+modalClose.addEventListener("click",closePhoto);
+
+modal.addEventListener("click",function(event){
+  if(event.target === modal){
+    closePhoto();
+  }
+});
+
+document.addEventListener("keydown",function(event){
+  if(event.key === "Escape"){
+    closePhoto();
+    mobileMenu.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+});
+
+const envelope = document.getElementById("envelope");
+
+function toggleEnvelope(){
+  envelope.classList.toggle("open");
+}
+
+envelope.addEventListener("click",toggleEnvelope);
+
+envelope.addEventListener("keydown",function(event){
+  if(event.key === "Enter" || event.key === " "){
+    event.preventDefault();
+    toggleEnvelope();
+  }
+});
+
+const musicCards = document.querySelectorAll(".music-card");
+const musicFloat = document.getElementById("musicFloat");
+let selectedAudio = null;
+
+musicCards.forEach(function(card){
+  const audio = card.querySelector("audio");
+  const chooseButton = card.querySelector(".music-use");
+
+  audio.addEventListener("play",function(){
+    musicCards.forEach(function(otherCard){
+      const otherAudio = otherCard.querySelector("audio");
+
+      if(otherAudio !== audio){
+        otherAudio.pause();
+      }
+    });
+
+    card.classList.add("playing");
+    selectedAudio = audio;
+    musicFloat.textContent = "♪ music playing";
+  });
+
+  audio.addEventListener("pause",function(){
+    card.classList.remove("playing");
+
+    if(selectedAudio === audio){
+      musicFloat.textContent = "♡ choose a song";
+    }
+  });
+
+  audio.addEventListener("ended",function(){
+    card.classList.remove("playing");
+
+    if(selectedAudio === audio){
+      musicFloat.textContent = "♡ choose a song";
+    }
+  });
+
+  chooseButton.addEventListener("click",function(){
+    musicCards.forEach(function(otherCard){
+      const otherAudio = otherCard.querySelector("audio");
+
+      if(otherAudio !== audio){
+        otherAudio.pause();
+      }
+    });
+
+    selectedAudio = audio;
+
+    audio.play().then(function(){
+      musicFloat.textContent = "♪ music playing";
+    }).catch(function(){
+      musicFloat.textContent = "♪ tap play";
+    });
+  });
+});
+
+musicFloat.addEventListener("click",function(){
+  if(!selectedAudio){
+    document.getElementById("music").scrollIntoView({
+      behavior:"smooth"
+    });
+    return;
+  }
+
+  if(selectedAudio.paused){
+    selectedAudio.play();
+  }else{
+    selectedAudio.pause();
+  }
+});
+
+document.querySelectorAll("video").forEach(function(video){
+  video.addEventListener("play",function(){
+    document.querySelectorAll("video").forEach(function(other){
+      if(other !== video){
+        other.pause();
+      }
+    });
+  });
+});
+
+const navigationLinks = Array.from(
+  document.querySelectorAll(".nav a")
+);
+
+const navigationTargets = navigationLinks
+  .map(function(link){
+    return document.querySelector(link.getAttribute("href"));
+  })
+  .filter(Boolean);
+
+const navigationObserver = new IntersectionObserver(
+  function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting){
+        return;
+      }
+
+      navigationLinks.forEach(function(link){
+        link.style.color = "";
+      });
+
+      const matchingLink = navigationLinks.find(function(link){
+        return link.getAttribute("href") === "#" + entry.target.id;
+      });
+
+      if(matchingLink){
+        matchingLink.style.color = "var(--wine)";
+      }
+    });
+  },
+  {
+    rootMargin:"-35% 0px -55% 0px"
+  }
+);
+
+navigationTargets.forEach(function(target){
+  navigationObserver.observe(target);
+});
+
+document.querySelectorAll("a[href^='#']").forEach(function(link){
+  link.addEventListener("click",function(event){
+    const selector = link.getAttribute("href");
+
+    if(selector === "#"){
+      return;
+    }
+
+    const target = document.querySelector(selector);
+
+    if(!target){
+      return;
+    }
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  });
+});
+
+window.addEventListener("resize",function(){
+  if(window.innerWidth > 950){
+    mobileMenu.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+});
+
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+);
+
+if(reducedMotion.matches){
+  document.documentElement.style.scrollBehavior = "auto";
+
+  document.querySelectorAll("*").forEach(function(element){
+    element.style.animationDuration = "0.001ms";
+    element.style.transitionDuration = "0.001ms";
+  });
+}
+
+window.addEventListener("load",function(){
+  if(window.location.hash){
+    const target = document.querySelector(window.location.hash);
+
+    if(target){
+      setTimeout(function(){
+        target.scrollIntoView({
+          behavior:"smooth"
+        });
+      },900);
+    }
+  }
+});
+
+</script>
+</body>
+</html>
