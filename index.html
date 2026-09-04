@@ -1,0 +1,3000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090609">
+<title>Still Us — Anniversary SpecialPage</title>
+<style>
+:root{
+  --bg:#090609;
+  --bg-soft:#120b12;
+  --card:rgba(255,255,255,.045);
+  --card-strong:rgba(255,255,255,.075);
+  --text:#fff9fc;
+  --muted:#b5a7b0;
+  --muted2:#776c76;
+  --rose:#f0a8c2;
+  --rose-deep:#a84e72;
+  --rose-dark:#3b1829;
+  --gold:#e5c48f;
+  --line:rgba(255,255,255,.13);
+  --line-soft:rgba(255,255,255,.07);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Manrope',Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  color:var(--text);
+  background:var(--bg);
+  font-family:var(--sans);
+  overflow-x:hidden;
+}
+body.modal-open{overflow:hidden;}
+a{text-decoration:none;color:inherit;}
+button{font:inherit;}
+img,video{max-width:100%;}
+::selection{background:rgba(240,168,194,.28);color:#fff;}
+.preloader{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  background:#090609;
+  transition:opacity .9s ease,visibility .9s ease;
+}
+.preloader.done{opacity:0;visibility:hidden;}
+.preloader-inner{text-align:center;}
+.preloader-mark{font:42px var(--serif);letter-spacing:1px;}
+.preloader-mark span{opacity:.4;}
+.preloader-heart{
+  margin:18px 0;
+  color:var(--rose);
+  font-size:34px;
+  animation:heartBeat 1.2s ease-in-out infinite;
+}
+.preloader-bar{
+  width:190px;
+  height:1px;
+  overflow:hidden;
+  margin:auto;
+  background:rgba(255,255,255,.1);
+}
+.preloader-bar i{
+  display:block;
+  width:40%;
+  height:100%;
+  background:var(--rose);
+  animation:loaderMove 1.4s ease-in-out infinite;
+}
+.preloader-small{
+  margin-top:12px;
+  color:var(--muted2);
+  font-size:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+@keyframes loaderMove{from{transform:translateX(-130%);}to{transform:translateX(380%);}}
+@keyframes heartBeat{50%{transform:scale(1.14);opacity:.72;}}
+.grain{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  pointer-events:none;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cursor-glow{
+  position:fixed;
+  z-index:-1;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle,rgba(168,78,114,.13),transparent 68%);
+  transform:translate(-50%,-50%);
+}
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:900;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 5vw;
+  transition:.35s ease;
+}
+.topbar.scrolled{
+  padding-top:14px;
+  padding-bottom:14px;
+  background:rgba(9,6,9,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line-soft);
+}
+.brand{font:31px var(--serif);letter-spacing:1px;}
+.brand span{opacity:.42;}
+.desktop-nav{display:flex;align-items:center;gap:25px;}
+.desktop-nav a{
+  color:rgba(255,255,255,.62);
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.25s ease;
+}
+.desktop-nav a:hover,.desktop-nav a.active{color:#fff;}
+.desktop-nav .nav-button{
+  padding:10px 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#fff;
+}
+.menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:rgba(255,255,255,.035);
+  color:#fff;
+}
+.mobile-nav{
+  position:fixed;
+  inset:0;
+  z-index:850;
+  display:grid;
+  place-items:center;
+  background:rgba(9,6,9,.98);
+  opacity:0;
+  visibility:hidden;
+  transition:.35s ease;
+}
+.mobile-nav.open{opacity:1;visibility:visible;}
+.mobile-nav-inner{display:grid;gap:24px;text-align:center;}
+.mobile-nav a{font:45px var(--serif);}
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1200;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--rose-deep),var(--rose),var(--gold));
+}
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 43%,rgba(168,78,114,.2),transparent 25%),
+    radial-gradient(circle at 20% 80%,rgba(99,48,92,.13),transparent 25%),
+    #090609;
+}
+.hero-stars{position:absolute;inset:0;pointer-events:none;}
+.hero-star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,235,244,.7);
+  animation:twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:.12;transform:scale(.8);}50%{opacity:.95;transform:scale(1.6);}}
+.hero-rings{
+  position:absolute;
+  left:50%;
+  top:52%;
+  width:900px;
+  height:900px;
+  transform:translate(-50%,-50%) rotateX(68deg);
+  border:1px solid rgba(240,168,194,.08);
+  border-radius:50%;
+  transition:transform .25s ease-out;
+}
+.hero-rings:before,.hero-rings:after{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  border:1px solid rgba(240,168,194,.07);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.hero-rings:before{width:72%;height:72%;}
+.hero-rings:after{width:45%;height:45%;}
+.orbit-dot{
+  position:absolute;
+  width:7px;
+  height:7px;
+  left:50%;
+  top:-4px;
+  border-radius:50%;
+  background:var(--rose);
+  box-shadow:0 0 30px rgba(240,168,194,.8);
+}
+.hero-photo{
+  position:absolute;
+  width:135px;
+  height:175px;
+  object-fit:cover;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:18px;
+  box-shadow:0 35px 90px rgba(0,0,0,.55);
+  filter:saturate(.86);
+  opacity:.7;
+  animation:photoFloat 8s ease-in-out infinite;
+}
+.hero-photo.one{left:7%;top:25%;transform:rotate(-10deg);}
+.hero-photo.two{right:7%;top:20%;transform:rotate(9deg);animation-delay:-2s;}
+.hero-photo.three{left:11%;bottom:9%;transform:rotate(7deg);animation-delay:-4s;}
+.hero-photo.four{right:10%;bottom:8%;transform:rotate(-8deg);animation-delay:-6s;}
+@keyframes photoFloat{50%{margin-top:-18px;}}
+.hero-content{
+  position:relative;
+  z-index:5;
+  width:min(920px,92vw);
+  padding:120px 20px 70px;
+  text-align:center;
+}
+.eyebrow{
+  color:rgba(255,255,255,.46);
+  font-size:8px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+}
+.hero-kicker{color:var(--rose);font-size:9px;letter-spacing:4px;text-transform:uppercase;}
+.hero-title{
+  margin:23px 0 25px;
+  font:400 clamp(76px,13vw,158px)/.74 var(--serif);
+  letter-spacing:-4px;
+}
+.hero-title em{color:var(--rose);}
+.hero-subtitle{
+  width:min(640px,100%);
+  margin:auto;
+  color:#aaa0aa;
+  font-size:13px;
+  line-height:1.95;
+}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:32px;}
+.pill{
+  min-height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 21px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:#fff;
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.3s ease;
+}
+.pill:hover{transform:translateY(-4px);background:rgba(255,255,255,.08);}
+.pill.light{background:#fff7fa;color:#190c13;border-color:transparent;}
+.hero-date{margin-top:45px;color:rgba(255,255,255,.28);font-size:8px;letter-spacing:3px;text-transform:uppercase;}
+.scroll-word{margin-top:30px;color:rgba(255,255,255,.23);font-size:7px;letter-spacing:4px;text-transform:uppercase;animation:scrollHint 2.2s ease-in-out infinite;}
+@keyframes scrollHint{50%{transform:translateY(7px);opacity:.55;}}
+.section{position:relative;padding:135px 5vw;scroll-margin-top:85px;}
+.section.soft{background:linear-gradient(180deg,transparent,rgba(255,255,255,.018),transparent);}
+.section-head{width:min(760px,92vw);margin:0 auto 65px;text-align:center;}
+.section-head h2{margin:17px 0 19px;font:400 clamp(58px,8vw,102px)/.82 var(--serif);}
+.section-head p{width:min(620px,100%);margin:auto;color:#968c97;font-size:12px;line-height:1.95;}
+.anniversary-card{
+  width:min(1060px,92vw);
+  margin:0 auto 80px;
+  padding:42px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:radial-gradient(circle at 0 0,rgba(168,78,114,.12),transparent 38%),rgba(255,255,255,.025);
+  box-shadow:0 35px 100px rgba(0,0,0,.38);
+}
+.anniversary-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:45px;align-items:center;}
+.anniversary-card h3{margin:0 0 14px;font:400 48px/1 var(--serif);}
+.anniversary-card p{margin:0;color:#918793;font-size:12px;line-height:1.9;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.stat{padding:21px 10px;border:1px solid var(--line-soft);border-radius:17px;text-align:center;background:rgba(255,255,255,.025);}
+.stat strong{display:block;font:400 38px var(--serif);}
+.stat span{display:block;margin-top:4px;color:var(--muted2);font-size:7px;letter-spacing:2px;text-transform:uppercase;}
+.memory-grid{
+  width:min(1160px,94vw);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+  perspective:1500px;
+}
+.memory{
+  position:relative;
+  overflow:hidden;
+  min-height:350px;
+  grid-column:span 4;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:#100b10;
+  box-shadow:0 28px 75px rgba(0,0,0,.35);
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s ease;
+}
+.memory:nth-child(1),.memory:nth-child(6){grid-column:span 8;min-height:520px;}
+.memory:nth-child(2),.memory:nth-child(7){grid-column:span 4;min-height:520px;}
+.memory:nth-child(4){grid-column:span 6;}
+.memory:nth-child(5){grid-column:span 6;}
+.memory:hover{transform:translateY(-10px) rotateX(2deg) rotateY(-2deg) translateZ(24px);box-shadow:0 50px 110px rgba(0,0,0,.62);}
+.memory img{width:100%;height:100%;min-height:inherit;object-fit:cover;display:block;transition:transform .8s ease,filter .8s ease;}
+.memory:hover img{transform:scale(1.06);filter:saturate(1.1);}
+.memory:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(0,0,0,.88));pointer-events:none;}
+.memory-info{position:absolute;left:23px;right:23px;bottom:20px;z-index:2;}
+.memory-index{color:rgba(255,255,255,.48);font-size:7px;letter-spacing:3px;text-transform:uppercase;}
+.memory-info h3{margin:6px 0 0;font:400 32px var(--serif);}
+.zoom{
+  position:absolute;
+  top:15px;
+  right:15px;
+  z-index:3;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  background:rgba(0,0,0,.24);
+  color:#fff;
+  backdrop-filter:blur(12px);
+}
+.chapter-break{width:min(820px,90vw);margin:95px auto 0;display:flex;align-items:center;gap:17px;}
+.chapter-break i{height:1px;flex:1;background:var(--line-soft);}
+.chapter-break span{color:var(--rose);font-size:14px;}
+.film-grid{width:min(1160px,94vw);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:27px;perspective:1300px;}
+.film-card{padding:10px;border:1px solid var(--line);border-radius:25px;background:rgba(255,255,255,.035);box-shadow:0 35px 95px rgba(0,0,0,.42);transition:.5s ease;}
+.film-card:first-child{transform:rotateY(2.5deg);}
+.film-card:last-child{transform:rotateY(-2.5deg);}
+.film-card:hover{transform:translateY(-10px) rotateY(0deg);}
+.film-frame{overflow:hidden;border-radius:17px;background:#000;}
+.film-frame video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;}
+.film-copy{padding:22px 14px 14px;}
+.film-copy small{color:var(--muted2);font-size:7px;letter-spacing:3px;text-transform:uppercase;}
+.film-copy h3{margin:7px 0;font:400 38px var(--serif);}
+.film-copy p{margin:0;color:#8f8691;font-size:11px;line-height:1.8;}
+.sound-wrap{width:min(1080px,94vw);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:25px;perspective:1300px;}
+.sound-card{padding:33px;border:1px solid var(--line);border-radius:28px;background:radial-gradient(circle at 50% 0,rgba(168,78,114,.12),transparent 42%),rgba(255,255,255,.035);box-shadow:0 35px 100px rgba(0,0,0,.43);transition:.5s ease;}
+.sound-card:first-child{transform:rotateY(3deg);}
+.sound-card:last-child{transform:rotateY(-3deg);}
+.sound-card:hover{transform:translateY(-9px) rotateY(0deg);}
+.record{position:relative;width:190px;height:190px;margin:0 auto 28px;border-radius:50%;background:radial-gradient(circle,#170f16 0 7%,var(--rose) 7.5% 8.2%,#181018 8.7% 31%,#6b344c 31.5% 32%,#141015 32.5% 56%,#8b4b66 56.5% 57%,#0c080d 57.5%);box-shadow:0 0 70px rgba(240,168,194,.14);}
+.record:after{content:'';position:absolute;width:21px;height:21px;left:50%;top:50%;border:1px solid rgba(255,255,255,.4);border-radius:50%;transform:translate(-50%,-50%);}
+.sound-card.playing .record{animation:recordSpin 5s linear infinite;}
+@keyframes recordSpin{to{transform:rotate(360deg);}}
+.sound-card h3{text-align:center;margin:0;font:400 40px var(--serif);}
+.sound-card .track-label{text-align:center;margin:7px 0 22px;color:var(--muted2);font-size:7px;letter-spacing:2px;text-transform:uppercase;}
+.sound-card audio{display:block;width:100%;}
+.sound-buttons{display:flex;justify-content:center;margin-top:13px;}
+.sound-select{padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035);color:#fff;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;}
+.letter-section{min-height:90vh;display:grid;place-items:center;padding:120px 5vw;background:radial-gradient(circle at 50% 50%,rgba(168,78,114,.12),transparent 36%);}
+.letter{width:min(900px,92vw);text-align:center;}
+.quote-mark{color:rgba(240,168,194,.55);font:100px/.5 var(--serif);}
+.letter h2{margin:28px 0;font:400 clamp(58px,8vw,105px)/.84 var(--serif);}
+.letter h2 em{color:var(--rose);}
+.letter p{width:min(610px,100%);margin:auto;color:#958c98;font-size:12px;line-height:1.95;}
+.reasons{width:min(1100px,92vw);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.reason{min-height:255px;padding:28px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);transition:.4s ease;}
+.reason:hover{transform:translateY(-8px);background:rgba(255,255,255,.055);}
+.reason-icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--rose);}
+.reason h3{margin:24px 0 8px;font:400 31px var(--serif);}
+.reason p{margin:0;color:#8f8793;font-size:10px;line-height:1.8;}
+.timeline{width:min(900px,92vw);margin:auto;position:relative;}
+.timeline:before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%);}
+.timeline-item{position:relative;width:50%;padding:25px 50px 25px 0;}
+.timeline-item:nth-child(even){margin-left:50%;padding:25px 0 25px 50px;}
+.timeline-dot{position:absolute;right:-6px;top:35px;width:12px;height:12px;border-radius:50%;background:var(--rose);box-shadow:0 0 20px rgba(240,168,194,.5);}
+.timeline-item:nth-child(even) .timeline-dot{left:-6px;right:auto;}
+.timeline-year{color:var(--rose);font-size:8px;letter-spacing:3px;text-transform:uppercase;}
+.timeline-item h3{margin:7px 0;font:400 34px var(--serif);}
+.timeline-item p{margin:0;color:#8f8793;font-size:10px;line-height:1.8;}
+.final{position:relative;min-height:90vh;display:grid;place-items:center;overflow:hidden;text-align:center;background:radial-gradient(circle at 50% 45%,rgba(168,78,114,.18),transparent 36%);}
+.final-ring{position:absolute;width:690px;height:690px;border:1px solid rgba(240,168,194,.08);border-radius:50%;transform:rotateX(70deg);}
+.final-content{position:relative;z-index:2;}
+.final h2{margin:20px 0;font:400 clamp(70px,10vw,130px)/.77 var(--serif);}
+.final h2 em{color:var(--rose);}
+.final p{width:min(570px,92vw);margin:24px auto;color:#948b97;font-size:12px;line-height:1.9;}
+.footer{padding:35px 5vw 50px;border-top:1px solid var(--line-soft);text-align:center;}
+.footer-logo{font:30px var(--serif);}
+.footer-logo span{opacity:.4;}
+.footer p{margin:8px 0 0;color:var(--muted2);font-size:7px;letter-spacing:2px;text-transform:uppercase;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.show{opacity:1;transform:none;}
+.modal{position:fixed;inset:0;z-index:3000;display:grid;place-items:center;padding:25px;background:rgba(0,0,0,.94);opacity:0;visibility:hidden;transition:.3s ease;}
+.modal.open{opacity:1;visibility:visible;}
+.modal img{max-width:95vw;max-height:88vh;border-radius:16px;box-shadow:0 40px 120px rgba(0,0,0,.8);}
+.modal-close{position:absolute;top:22px;right:22px;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:20px;}
+.music-float{position:fixed;right:18px;bottom:18px;z-index:700;min-height:43px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:rgba(9,6,9,.8);backdrop-filter:blur(14px);color:#fff;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;}
+.music-float.active{color:var(--rose);border-color:rgba(240,168,194,.4);}
+.sparkle-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.particle-1{
+  position:absolute;
+  left:37%;
+  top:61%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-1 5s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-1{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-2{
+  position:absolute;
+  left:74%;
+  top:22%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-2 6s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-2{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-3{
+  position:absolute;
+  left:11%;
+  top:83%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-3 7s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-3{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-4{
+  position:absolute;
+  left:48%;
+  top:44%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-4 8s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-4{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-5{
+  position:absolute;
+  left:85%;
+  top:5%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-5 9s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-5{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-6{
+  position:absolute;
+  left:22%;
+  top:66%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-6 10s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-6{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-7{
+  position:absolute;
+  left:59%;
+  top:27%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-7 4s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-7{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-8{
+  position:absolute;
+  left:96%;
+  top:88%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-8 5s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-8{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-9{
+  position:absolute;
+  left:33%;
+  top:49%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-9 6s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-9{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-10{
+  position:absolute;
+  left:70%;
+  top:10%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-10 7s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-10{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-11{
+  position:absolute;
+  left:7%;
+  top:71%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-11 8s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-11{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-12{
+  position:absolute;
+  left:44%;
+  top:32%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-12 9s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-12{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-13{
+  position:absolute;
+  left:81%;
+  top:93%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-13 10s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-13{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-14{
+  position:absolute;
+  left:18%;
+  top:54%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-14 4s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-14{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-15{
+  position:absolute;
+  left:55%;
+  top:15%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-15 5s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-15{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-16{
+  position:absolute;
+  left:92%;
+  top:76%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-16 6s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-16{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-17{
+  position:absolute;
+  left:29%;
+  top:37%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-17 7s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-17{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-18{
+  position:absolute;
+  left:66%;
+  top:98%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-18 8s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-18{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-19{
+  position:absolute;
+  left:3%;
+  top:59%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-19 9s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-19{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-20{
+  position:absolute;
+  left:40%;
+  top:20%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-20 10s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-20{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-21{
+  position:absolute;
+  left:77%;
+  top:81%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-21 4s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-21{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-22{
+  position:absolute;
+  left:14%;
+  top:42%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-22 5s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-22{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-23{
+  position:absolute;
+  left:51%;
+  top:3%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-23 6s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-23{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-24{
+  position:absolute;
+  left:88%;
+  top:64%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-24 7s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-24{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-25{
+  position:absolute;
+  left:25%;
+  top:25%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-25 8s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-25{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-26{
+  position:absolute;
+  left:62%;
+  top:86%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-26 9s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-26{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-27{
+  position:absolute;
+  left:99%;
+  top:47%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-27 10s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-27{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-28{
+  position:absolute;
+  left:36%;
+  top:8%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-28 4s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-28{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-29{
+  position:absolute;
+  left:73%;
+  top:69%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-29 5s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-29{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-30{
+  position:absolute;
+  left:10%;
+  top:30%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-30 6s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-30{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-31{
+  position:absolute;
+  left:47%;
+  top:91%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-31 7s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-31{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-32{
+  position:absolute;
+  left:84%;
+  top:52%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-32 8s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-32{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-33{
+  position:absolute;
+  left:21%;
+  top:13%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-33 9s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-33{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-34{
+  position:absolute;
+  left:58%;
+  top:74%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-34 10s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-34{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-35{
+  position:absolute;
+  left:95%;
+  top:35%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-35 4s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-35{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-36{
+  position:absolute;
+  left:32%;
+  top:96%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-36 5s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-36{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-37{
+  position:absolute;
+  left:69%;
+  top:57%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-37 6s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-37{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-38{
+  position:absolute;
+  left:6%;
+  top:18%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-38 7s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-38{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-39{
+  position:absolute;
+  left:43%;
+  top:79%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-39 8s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-39{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-40{
+  position:absolute;
+  left:80%;
+  top:40%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-40 9s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-40{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-41{
+  position:absolute;
+  left:17%;
+  top:1%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-41 10s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-41{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-42{
+  position:absolute;
+  left:54%;
+  top:62%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-42 4s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-42{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-43{
+  position:absolute;
+  left:91%;
+  top:23%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-43 5s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-43{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-44{
+  position:absolute;
+  left:28%;
+  top:84%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-44 6s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-44{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-45{
+  position:absolute;
+  left:65%;
+  top:45%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-45 7s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-45{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-46{
+  position:absolute;
+  left:2%;
+  top:6%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-46 8s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-46{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-47{
+  position:absolute;
+  left:39%;
+  top:67%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-47 9s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-47{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-48{
+  position:absolute;
+  left:76%;
+  top:28%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-48 10s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-48{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-49{
+  position:absolute;
+  left:13%;
+  top:89%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-49 4s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-49{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-50{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-50 5s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-50{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-51{
+  position:absolute;
+  left:87%;
+  top:11%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-51 6s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-51{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-52{
+  position:absolute;
+  left:24%;
+  top:72%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-52 7s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-52{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-53{
+  position:absolute;
+  left:61%;
+  top:33%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-53 8s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-53{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-54{
+  position:absolute;
+  left:98%;
+  top:94%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-54 9s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-54{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-55{
+  position:absolute;
+  left:35%;
+  top:55%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-55 10s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-55{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-56{
+  position:absolute;
+  left:72%;
+  top:16%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-56 4s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-56{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-57{
+  position:absolute;
+  left:9%;
+  top:77%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-57 5s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-57{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-58{
+  position:absolute;
+  left:46%;
+  top:38%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-58 6s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-58{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-59{
+  position:absolute;
+  left:83%;
+  top:99%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-59 7s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-59{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-60{
+  position:absolute;
+  left:20%;
+  top:60%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-60 8s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-60{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-61{
+  position:absolute;
+  left:57%;
+  top:21%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-61 9s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-61{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-62{
+  position:absolute;
+  left:94%;
+  top:82%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-62 10s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-62{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-63{
+  position:absolute;
+  left:31%;
+  top:43%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-63 4s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-63{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-64{
+  position:absolute;
+  left:68%;
+  top:4%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-64 5s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-64{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-65{
+  position:absolute;
+  left:5%;
+  top:65%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-65 6s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-65{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-66{
+  position:absolute;
+  left:42%;
+  top:26%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-66 7s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-66{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-67{
+  position:absolute;
+  left:79%;
+  top:87%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-67 8s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-67{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-68{
+  position:absolute;
+  left:16%;
+  top:48%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-68 9s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-68{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-69{
+  position:absolute;
+  left:53%;
+  top:9%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-69 10s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-69{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-70{
+  position:absolute;
+  left:90%;
+  top:70%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-70 4s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-70{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-71{
+  position:absolute;
+  left:27%;
+  top:31%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-71 5s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-71{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-72{
+  position:absolute;
+  left:64%;
+  top:92%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-72 6s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-72{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-73{
+  position:absolute;
+  left:1%;
+  top:53%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-73 7s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-73{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-74{
+  position:absolute;
+  left:38%;
+  top:14%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-74 8s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-74{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-75{
+  position:absolute;
+  left:75%;
+  top:75%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-75 9s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-75{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-76{
+  position:absolute;
+  left:12%;
+  top:36%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-76 10s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-76{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-77{
+  position:absolute;
+  left:49%;
+  top:97%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-77 4s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-77{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-78{
+  position:absolute;
+  left:86%;
+  top:58%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-78 5s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-78{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-79{
+  position:absolute;
+  left:23%;
+  top:19%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-79 6s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-79{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-80{
+  position:absolute;
+  left:60%;
+  top:80%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-80 7s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-80{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-81{
+  position:absolute;
+  left:97%;
+  top:41%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-81 8s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-81{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-82{
+  position:absolute;
+  left:34%;
+  top:2%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-82 9s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-82{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-83{
+  position:absolute;
+  left:71%;
+  top:63%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-83 10s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-83{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-84{
+  position:absolute;
+  left:8%;
+  top:24%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-84 4s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-84{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-85{
+  position:absolute;
+  left:45%;
+  top:85%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-85 5s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-85{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-86{
+  position:absolute;
+  left:82%;
+  top:46%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-86 6s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-86{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-87{
+  position:absolute;
+  left:19%;
+  top:7%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-87 7s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-87{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,3px,0) scale(1.35);opacity:.9;}
+}
+.particle-88{
+  position:absolute;
+  left:56%;
+  top:68%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-88 8s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-88{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,4px,0) scale(1.35);opacity:.9;}
+}
+.particle-89{
+  position:absolute;
+  left:93%;
+  top:29%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-89 9s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-89{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,5px,0) scale(1.35);opacity:.9;}
+}
+.particle-90{
+  position:absolute;
+  left:30%;
+  top:90%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-90 10s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-90{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-3px,6px,0) scale(1.35);opacity:.9;}
+}
+.particle-91{
+  position:absolute;
+  left:67%;
+  top:51%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-91 4s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-91{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-2px,-6px,0) scale(1.35);opacity:.9;}
+}
+.particle-92{
+  position:absolute;
+  left:4%;
+  top:12%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-92 5s ease-in-out -2s infinite;
+}
+@keyframes particleFloat-92{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-1px,-5px,0) scale(1.35);opacity:.9;}
+}
+.particle-93{
+  position:absolute;
+  left:41%;
+  top:73%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-93 6s ease-in-out -3s infinite;
+}
+@keyframes particleFloat-93{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(0px,-4px,0) scale(1.35);opacity:.9;}
+}
+.particle-94{
+  position:absolute;
+  left:78%;
+  top:34%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-94 7s ease-in-out -4s infinite;
+}
+@keyframes particleFloat-94{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(1px,-3px,0) scale(1.35);opacity:.9;}
+}
+.particle-95{
+  position:absolute;
+  left:15%;
+  top:95%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-95 8s ease-in-out -5s infinite;
+}
+@keyframes particleFloat-95{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(2px,-2px,0) scale(1.35);opacity:.9;}
+}
+.particle-96{
+  position:absolute;
+  left:52%;
+  top:56%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.28);
+  animation:particleFloat-96 9s ease-in-out -6s infinite;
+}
+@keyframes particleFloat-96{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(3px,-1px,0) scale(1.35);opacity:.9;}
+}
+.particle-97{
+  position:absolute;
+  left:89%;
+  top:17%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.38);
+  animation:particleFloat-97 10s ease-in-out -7s infinite;
+}
+@keyframes particleFloat-97{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(4px,0px,0) scale(1.35);opacity:.9;}
+}
+.particle-98{
+  position:absolute;
+  left:26%;
+  top:78%;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.48000000000000004);
+  animation:particleFloat-98 4s ease-in-out -8s infinite;
+}
+@keyframes particleFloat-98{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(5px,1px,0) scale(1.35);opacity:.9;}
+}
+.particle-99{
+  position:absolute;
+  left:63%;
+  top:39%;
+  width:1px;
+  height:1px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.5800000000000001);
+  animation:particleFloat-99 5s ease-in-out 0s infinite;
+}
+@keyframes particleFloat-99{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-5px,2px,0) scale(1.35);opacity:.9;}
+}
+.particle-100{
+  position:absolute;
+  left:0%;
+  top:0%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:rgba(255,225,238,0.18);
+  animation:particleFloat-100 6s ease-in-out -1s infinite;
+}
+@keyframes particleFloat-100{
+  0%,100%{transform:translate3d(0,0,0) scale(.7);opacity:.2;}
+  50%{transform:translate3d(-4px,3px,0) scale(1.35);opacity:.9;}
+}
+@media(max-width:950px){
+  .desktop-nav{display:none;}
+  .menu-button{display:block;}
+  .hero-rings{width:720px;height:720px;}
+  .hero-photo{width:95px;height:125px;}
+  .anniversary-grid{grid-template-columns:1fr;}
+  .memory-grid{grid-template-columns:repeat(2,1fr);}
+  .memory,.memory:nth-child(1),.memory:nth-child(2),.memory:nth-child(4),.memory:nth-child(5),.memory:nth-child(6),.memory:nth-child(7){grid-column:span 1;min-height:350px;}
+  .memory:nth-child(1),.memory:nth-child(6){grid-column:span 2;}
+  .film-grid,.sound-wrap{grid-template-columns:1fr;}
+  .film-card:first-child,.film-card:last-child,.sound-card:first-child,.sound-card:last-child{transform:none;}
+  .reasons{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .topbar{padding:18px 20px;}
+  .brand{font-size:27px;}
+  .hero-content{padding-top:110px;}
+  .hero-title{font-size:68px;letter-spacing:-1px;}
+  .hero-subtitle{font-size:11px;}
+  .hero-photo{width:65px;height:88px;border-radius:12px;}
+  .hero-photo.one{left:2%;top:24%;}
+  .hero-photo.two{right:2%;top:22%;}
+  .hero-photo.three{left:4%;bottom:9%;}
+  .hero-photo.four{right:4%;bottom:9%;}
+  .hero-rings{width:540px;height:540px;}
+  .section{padding:90px 18px;}
+  .anniversary-card{padding:27px;}
+  .stats{gap:5px;}
+  .stat strong{font-size:29px;}
+  .memory-grid{gap:10px;}
+  .memory,.memory:nth-child(1),.memory:nth-child(2),.memory:nth-child(4),.memory:nth-child(5),.memory:nth-child(6),.memory:nth-child(7){min-height:260px;}
+  .memory:nth-child(1),.memory:nth-child(6){grid-column:span 2;}
+  .memory-info{left:15px;right:15px;bottom:15px;}
+  .memory-info h3{font-size:25px;}
+  .record{width:150px;height:150px;}
+  .sound-card{padding:25px;}
+  .timeline:before{left:8px;}
+  .timeline-item,.timeline-item:nth-child(even){width:100%;margin-left:0;padding:25px 0 25px 35px;}
+  .timeline-dot,.timeline-item:nth-child(even) .timeline-dot{left:2px;right:auto;}
+  .final-ring{width:470px;height:470px;}
+  .music-float{right:11px;bottom:11px;}
+}
+</style>
+</head>
+<body>
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-mark">special<span>pages</span></div>
+    <div class="preloader-heart">♡</div>
+    <div class="preloader-bar"><i></i></div>
+    <div class="preloader-small">opening an anniversary story</div>
+  </div>
+</div>
+
+<div class="grain"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#home">special<span>pages</span></a>
+  <nav class="desktop-nav">
+    <a href="#memories">Memories</a>
+    <a href="#films">Films</a>
+    <a href="#music">Music</a>
+    <a href="#story">Story</a>
+    <a class="nav-button" href="#final">Create yours</a>
+  </nav>
+  <button class="menu-button" id="menuButton" type="button" aria-label="Open menu">☰</button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <a href="#memories">Memories</a>
+    <a href="#films">Films</a>
+    <a href="#music">Music</a>
+    <a href="#story">Story</a>
+    <a href="#final">Create yours</a>
+  </div>
+</div>
+
+<button class="music-float" id="musicFloat" type="button">♡ Choose music</button>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-stars" id="heroStars"></div>
+  <div class="sparkle-field">
+    <span class="particle-1"></span>
+    <span class="particle-2"></span>
+    <span class="particle-3"></span>
+    <span class="particle-4"></span>
+    <span class="particle-5"></span>
+    <span class="particle-6"></span>
+    <span class="particle-7"></span>
+    <span class="particle-8"></span>
+    <span class="particle-9"></span>
+    <span class="particle-10"></span>
+    <span class="particle-11"></span>
+    <span class="particle-12"></span>
+    <span class="particle-13"></span>
+    <span class="particle-14"></span>
+    <span class="particle-15"></span>
+    <span class="particle-16"></span>
+    <span class="particle-17"></span>
+    <span class="particle-18"></span>
+    <span class="particle-19"></span>
+    <span class="particle-20"></span>
+    <span class="particle-21"></span>
+    <span class="particle-22"></span>
+    <span class="particle-23"></span>
+    <span class="particle-24"></span>
+    <span class="particle-25"></span>
+    <span class="particle-26"></span>
+    <span class="particle-27"></span>
+    <span class="particle-28"></span>
+    <span class="particle-29"></span>
+    <span class="particle-30"></span>
+    <span class="particle-31"></span>
+    <span class="particle-32"></span>
+    <span class="particle-33"></span>
+    <span class="particle-34"></span>
+    <span class="particle-35"></span>
+    <span class="particle-36"></span>
+    <span class="particle-37"></span>
+    <span class="particle-38"></span>
+    <span class="particle-39"></span>
+    <span class="particle-40"></span>
+    <span class="particle-41"></span>
+    <span class="particle-42"></span>
+    <span class="particle-43"></span>
+    <span class="particle-44"></span>
+    <span class="particle-45"></span>
+    <span class="particle-46"></span>
+    <span class="particle-47"></span>
+    <span class="particle-48"></span>
+    <span class="particle-49"></span>
+    <span class="particle-50"></span>
+    <span class="particle-51"></span>
+    <span class="particle-52"></span>
+    <span class="particle-53"></span>
+    <span class="particle-54"></span>
+    <span class="particle-55"></span>
+    <span class="particle-56"></span>
+    <span class="particle-57"></span>
+    <span class="particle-58"></span>
+    <span class="particle-59"></span>
+    <span class="particle-60"></span>
+    <span class="particle-61"></span>
+    <span class="particle-62"></span>
+    <span class="particle-63"></span>
+    <span class="particle-64"></span>
+    <span class="particle-65"></span>
+    <span class="particle-66"></span>
+    <span class="particle-67"></span>
+    <span class="particle-68"></span>
+    <span class="particle-69"></span>
+    <span class="particle-70"></span>
+    <span class="particle-71"></span>
+    <span class="particle-72"></span>
+    <span class="particle-73"></span>
+    <span class="particle-74"></span>
+    <span class="particle-75"></span>
+    <span class="particle-76"></span>
+    <span class="particle-77"></span>
+    <span class="particle-78"></span>
+    <span class="particle-79"></span>
+    <span class="particle-80"></span>
+    <span class="particle-81"></span>
+    <span class="particle-82"></span>
+    <span class="particle-83"></span>
+    <span class="particle-84"></span>
+    <span class="particle-85"></span>
+    <span class="particle-86"></span>
+    <span class="particle-87"></span>
+    <span class="particle-88"></span>
+    <span class="particle-89"></span>
+    <span class="particle-90"></span>
+    <span class="particle-91"></span>
+    <span class="particle-92"></span>
+    <span class="particle-93"></span>
+    <span class="particle-94"></span>
+    <span class="particle-95"></span>
+    <span class="particle-96"></span>
+    <span class="particle-97"></span>
+    <span class="particle-98"></span>
+    <span class="particle-99"></span>
+    <span class="particle-100"></span>
+  </div>
+  <div class="hero-rings" id="heroRings">
+    <span class="orbit-dot"></span>
+  </div>
+
+  <img class="hero-photo one media-image" data-name="gallery-1.jpg" alt="Anniversary memory">
+  <img class="hero-photo two media-image" data-name="memory-1.jpg" alt="Anniversary memory">
+  <img class="hero-photo three media-image" data-name="gallery-3.jpg" alt="Anniversary memory">
+  <img class="hero-photo four media-image" data-name="memory-2.jpg" alt="Anniversary memory">
+
+  <div class="hero-content">
+    <div class="hero-kicker">another year · another chapter</div>
+    <h1 class="hero-title">Still you.<br><em>Still us.</em></h1>
+    <p class="hero-subtitle">
+      A little digital world for the person who made ordinary days
+      feel like memories worth keeping.
+    </p>
+    <div class="hero-actions">
+      <a class="pill light" href="#memories">Open our memories ↓</a>
+      <a class="pill" href="#music">Play our soundtrack</a>
+    </div>
+    <div class="hero-date">happy anniversary · with love, always</div>
+    <div class="scroll-word">scroll slowly</div>
+  </div>
+</section>
+
+<section class="section" id="memories">
+  <div class="section-head reveal">
+    <div class="eyebrow">chapter I · the memories</div>
+    <h2>Eight moments.<br>One lifetime of us.</h2>
+    <p>
+      Because the best stories are not made from one perfect day.
+      They are made from hundreds of small moments that somehow become everything.
+    </p>
+  </div>
+
+  <div class="anniversary-card reveal">
+    <div class="anniversary-grid">
+      <div>
+        <div class="eyebrow">the anniversary collection</div>
+        <h3>Keep this one forever.</h3>
+        <p>
+          Eight photographs, two films and two songs, brought together
+          into an experience made to feel personal from the first scroll
+          to the final heartbeat.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>08</strong><span>photos</span></div>
+        <div class="stat"><strong>02</strong><span>films</span></div>
+        <div class="stat"><strong>02</strong><span>songs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memory-grid">
+    <article class="memory reveal">
+      <img class="media-image" data-name="hero.jpg" alt="Memory one">
+      <button class="zoom" data-photo="hero.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">01 · the beginning</div>
+        <h3>Where it all started.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="gallery-1.jpg" alt="Memory two">
+      <button class="zoom" data-photo="gallery-1.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">02 · that smile</div>
+        <h3>The one I remember.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="gallery-2.jpg" alt="Memory three">
+      <button class="zoom" data-photo="gallery-2.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">03 · somewhere together</div>
+        <h3>Us, outside the world.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="gallery-3.jpg" alt="Memory four">
+      <button class="zoom" data-photo="gallery-3.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">04 · the little things</div>
+        <h3>The tiny moments.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="gallery-4.jpg" alt="Memory five">
+      <button class="zoom" data-photo="gallery-4.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">05 · kept close</div>
+        <h3>A day worth keeping.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="memory-1.jpg" alt="Memory six">
+      <button class="zoom" data-photo="memory-1.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">06 · my favourite feeling</div>
+        <h3>Somehow, always you.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="memory-2.jpg" alt="Memory seven">
+      <button class="zoom" data-photo="memory-2.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">07 · the laughter</div>
+        <h3>Still laughing.</h3>
+      </div>
+    </article>
+
+    <article class="memory reveal">
+      <img class="media-image" data-name="final-photo.jpg" alt="Memory eight">
+      <button class="zoom" data-photo="final-photo.jpg" type="button">↗</button>
+      <div class="memory-info">
+        <div class="memory-index">08 · after all this time</div>
+        <h3>And still, you.</h3>
+      </div>
+    </article>
+  </div>
+
+  <div class="chapter-break reveal"><i></i><span>♡</span><i></i></div>
+</section>
+
+<section class="section soft" id="films">
+  <div class="section-head reveal">
+    <div class="eyebrow">chapter II · the films</div>
+    <h2>Some memories<br>need motion.</h2>
+    <p>
+      A photograph keeps the frame.
+      A video keeps the feeling moving.
+    </p>
+  </div>
+
+  <div class="film-grid">
+    <article class="film-card reveal">
+      <div class="film-frame">
+        <video class="media-video" data-name="clip1.mp4" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="film-copy">
+        <small>film 01 · replay this</small>
+        <h3>The little moment.</h3>
+        <p>For the memory that deserves more than one watch.</p>
+      </div>
+    </article>
+
+    <article class="film-card reveal">
+      <div class="film-frame">
+        <video class="media-video" data-name="clip2.mp4" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="film-copy">
+        <small>film 02 · one more time</small>
+        <h3>Another chapter.</h3>
+        <p>Press play and let the moment come alive again.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="music">
+  <div class="section-head reveal">
+    <div class="eyebrow">chapter III · our soundtrack</div>
+    <h2>Two songs.<br>One feeling.</h2>
+    <p>
+      Pick the track that feels most like the two of you.
+      The record spins while the memory plays.
+    </p>
+  </div>
+
+  <div class="sound-wrap">
+    <article class="sound-card reveal">
+      <div class="record"></div>
+      <h3>Song Two</h3>
+      <div class="track-label">track 01 · for the memories</div>
+      <audio class="media-audio" data-name="song2.mp3" controls preload="metadata"></audio>
+      <div class="sound-buttons">
+        <button class="sound-select" type="button">Make this the song</button>
+      </div>
+    </article>
+
+    <article class="sound-card reveal">
+      <div class="record"></div>
+      <h3>Our Soundtrack</h3>
+      <div class="track-label">track 02 · play this slowly</div>
+      <audio class="media-audio" data-name="soundtrack.mp3" controls preload="metadata"></audio>
+      <div class="sound-buttons">
+        <button class="sound-select" type="button">Make this the song</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="letter-section" id="letter">
+  <div class="letter reveal">
+    <div class="quote-mark">“</div>
+    <h2>After every version of life,<br><em>I would still choose you.</em></h2>
+    <p>
+      Anniversaries are not only about counting the years.
+      They are about remembering every reason you made it this far,
+      and quietly choosing each other for all the years still waiting.
+    </p>
+  </div>
+</section>
+
+<section class="section soft" id="story">
+  <div class="section-head reveal">
+    <div class="eyebrow">chapter IV · the reasons</div>
+    <h2>Why I would<br>choose you again.</h2>
+    <p>
+      Not because everything is perfect.
+      Because even the imperfect days are better with you in them.
+    </p>
+  </div>
+
+  <div class="reasons">
+    <article class="reason reveal">
+      <div class="reason-icon">♡</div>
+      <h3>The comfort.</h3>
+      <p>You somehow make the loudest days feel quiet enough to breathe.</p>
+    </article>
+
+    <article class="reason reveal">
+      <div class="reason-icon">✦</div>
+      <h3>The laughter.</h3>
+      <p>Some of my favourite memories are the ones where neither of us could stop laughing.</p>
+    </article>
+
+    <article class="reason reveal">
+      <div class="reason-icon">∞</div>
+      <h3>The choice.</h3>
+      <p>Through every new chapter, there is still one person I want beside me.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="section-head reveal">
+    <div class="eyebrow">chapter V · our timeline</div>
+    <h2>A few chapters<br>worth remembering.</h2>
+    <p>Every relationship has turning points. These are the ones that became part of the story.</p>
+  </div>
+
+  <div class="timeline">
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-year">chapter 01</div>
+      <h3>The beginning.</h3>
+      <p>The day an ordinary moment quietly became the first page of something extraordinary.</p>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-year">chapter 02</div>
+      <h3>The becoming.</h3>
+      <p>The phase where two separate lives started collecting little pieces of the same story.</p>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-year">chapter 03</div>
+      <h3>The memories.</h3>
+      <p>The trips, jokes, photographs, late conversations and tiny things that stayed.</p>
+    </article>
+
+    <article class="timeline-item reveal">
+      <span class="timeline-dot"></span>
+      <div class="timeline-year">chapter 04</div>
+      <h3>This anniversary.</h3>
+      <p>Another year finished. Another reason to look back and say: I am glad it was you.</p>
+    </article>
+  </div>
+</section>
+
+<section class="final" id="final">
+  <div class="final-ring"></div>
+  <div class="final-content reveal">
+    <div class="eyebrow">the last chapter · or the next beginning</div>
+    <h2>Still you.<br><em>Always us.</em></h2>
+    <p>
+      Now imagine sending this exact feeling to someone you love.
+      One private link. Their memories. Their songs. Their story.
+    </p>
+    <a class="pill light" href="https://specialpages.in">Create a SpecialPage ↗</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footer-logo">special<span>pages</span></div>
+  <p>digital surprises · made personal</p>
+</footer>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <button class="modal-close" id="modalClose" type="button" aria-label="Close image">×</button>
+  <img id="modalImage" alt="Expanded anniversary memory">
+</div>
+
+<script>
+
+const ZERO_WIDTH = "\u200b";
+const FALLBACK_PREFIX = ZERO_WIDTH;
+
+const photoNames = [
+  "hero.jpg",
+  "gallery-1.jpg",
+  "gallery-2.jpg",
+  "gallery-3.jpg",
+  "gallery-4.jpg",
+  "memory-1.jpg",
+  "memory-2.jpg",
+  "final-photo.jpg"
+];
+
+const videoNames = [
+  "clip1.mp4",
+  "clip2.mp4"
+];
+
+const audioNames = [
+  "song2.mp3",
+  "soundtrack.mp3"
+];
+
+function assetCandidates(name){
+  return [
+    name,
+    FALLBACK_PREFIX + name
+  ];
+}
+
+function setImageSource(image){
+  const name = image.dataset.name;
+  const candidates = assetCandidates(name);
+  let index = 0;
+
+  function tryNext(){
+    if(index >= candidates.length){
+      image.removeAttribute("src");
+      image.style.background =
+        "radial-gradient(circle at 50% 40%,#4a2637,#100a10 65%)";
+      return;
+    }
+
+    image.src = candidates[index];
+    index += 1;
+  }
+
+  image.addEventListener("error",tryNext);
+  tryNext();
+}
+
+function setMediaSource(media){
+  const name = media.dataset.name;
+  const candidates = assetCandidates(name);
+  let index = 0;
+
+  function tryNext(){
+    if(index >= candidates.length){
+      return;
+    }
+
+    media.src = candidates[index];
+    index += 1;
+    media.load();
+  }
+
+  media.addEventListener("error",tryNext);
+  tryNext();
+}
+
+document.querySelectorAll(".media-image").forEach(setImageSource);
+document.querySelectorAll(".media-video").forEach(setMediaSource);
+document.querySelectorAll(".media-audio").forEach(setMediaSource);
+
+const preloader = document.getElementById("preloader");
+
+window.addEventListener("load",function(){
+  window.setTimeout(function(){
+    preloader.classList.add("done");
+  },700);
+});
+
+const topbar = document.getElementById("topbar");
+const scrollProgress = document.getElementById("scrollProgress");
+
+function updateScrollUI(){
+  const y = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const percent = max > 0 ? (y / max) * 100 : 0;
+
+  scrollProgress.style.width = percent + "%";
+  topbar.classList.toggle("scrolled",y > 30);
+}
+
+window.addEventListener("scroll",updateScrollUI,{passive:true});
+updateScrollUI();
+
+const menuButton = document.getElementById("menuButton");
+const mobileNav = document.getElementById("mobileNav");
+
+menuButton.addEventListener("click",function(){
+  mobileNav.classList.toggle("open");
+  document.body.classList.toggle("modal-open");
+});
+
+mobileNav.querySelectorAll("a").forEach(function(link){
+  link.addEventListener("click",function(){
+    mobileNav.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  });
+});
+
+const revealObserver = new IntersectionObserver(
+  function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold:0.12
+  }
+);
+
+document.querySelectorAll(".reveal").forEach(function(element){
+  revealObserver.observe(element);
+});
+
+const cursorGlow = document.getElementById("cursorGlow");
+
+window.addEventListener("pointermove",function(event){
+  cursorGlow.style.left = event.clientX + "px";
+  cursorGlow.style.top = event.clientY + "px";
+});
+
+const heroRings = document.getElementById("heroRings");
+
+window.addEventListener("pointermove",function(event){
+  if(window.innerWidth < 950){
+    return;
+  }
+
+  const x = event.clientX / window.innerWidth - 0.5;
+  const y = event.clientY / window.innerHeight - 0.5;
+
+  heroRings.style.transform =
+    "translate(-50%,-50%) rotateX(" +
+    (68 + y * 8) +
+    "deg) rotateY(" +
+    (x * 8) +
+    "deg)";
+});
+
+const heroStars = document.getElementById("heroStars");
+
+for(let i = 0;i < 95;i += 1){
+  const star = document.createElement("span");
+
+  star.className = "hero-star";
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = Math.random() * 100 + "%";
+  star.style.animationDelay = Math.random() * 5 + "s";
+  star.style.animationDuration = 3 + Math.random() * 6 + "s";
+
+  heroStars.appendChild(star);
+}
+
+document.querySelectorAll(".memory").forEach(function(card){
+  card.addEventListener("pointermove",function(event){
+    if(window.innerWidth < 950){
+      return;
+    }
+
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const rx = ((y / rect.height) - 0.5) * -6;
+    const ry = ((x / rect.width) - 0.5) * 6;
+
+    card.style.transform =
+      "translateY(-10px) rotateX(" +
+      rx +
+      "deg) rotateY(" +
+      ry +
+      "deg) translateZ(24px)";
+  });
+
+  card.addEventListener("pointerleave",function(){
+    card.style.transform = "";
+  });
+});
+
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImage");
+const modalClose = document.getElementById("modalClose");
+
+function openPhoto(name){
+  const candidates = assetCandidates(name);
+  let index = 0;
+
+  modalImage.onerror = function(){
+    if(index < candidates.length){
+      modalImage.src = candidates[index];
+      index += 1;
+    }
+  };
+
+  modalImage.src = candidates[index];
+  index += 1;
+
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+}
+
+function closePhoto(){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+}
+
+document.querySelectorAll("[data-photo]").forEach(function(button){
+  button.addEventListener("click",function(){
+    openPhoto(button.dataset.photo);
+  });
+});
+
+modalClose.addEventListener("click",closePhoto);
+
+modal.addEventListener("click",function(event){
+  if(event.target === modal){
+    closePhoto();
+  }
+});
+
+document.addEventListener("keydown",function(event){
+  if(event.key === "Escape"){
+    closePhoto();
+    mobileNav.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  }
+});
+
+const soundCards = document.querySelectorAll(".sound-card");
+const soundFloat = document.getElementById("musicFloat");
+let selectedAudio = null;
+
+soundCards.forEach(function(card){
+  const audio = card.querySelector("audio");
+  const select = card.querySelector(".sound-select");
+
+  audio.addEventListener("play",function(){
+    soundCards.forEach(function(otherCard){
+      const otherAudio = otherCard.querySelector("audio");
+
+      if(otherAudio !== audio){
+        otherAudio.pause();
+      }
+    });
+
+    card.classList.add("playing");
+    selectedAudio = audio;
+    soundFloat.classList.add("active");
+    soundFloat.textContent = "♪ music playing";
+  });
+
+  audio.addEventListener("pause",function(){
+    card.classList.remove("playing");
+
+    if(selectedAudio === audio){
+      soundFloat.classList.remove("active");
+      soundFloat.textContent = "♡ choose music";
+    }
+  });
+
+  audio.addEventListener("ended",function(){
+    card.classList.remove("playing");
+
+    if(selectedAudio === audio){
+      soundFloat.classList.remove("active");
+      soundFloat.textContent = "♡ choose music";
+    }
+  });
+
+  select.addEventListener("click",function(){
+    soundCards.forEach(function(otherCard){
+      const otherAudio = otherCard.querySelector("audio");
+
+      if(otherAudio !== audio){
+        otherAudio.pause();
+      }
+    });
+
+    selectedAudio = audio;
+
+    audio.play().then(function(){
+      soundFloat.classList.add("active");
+      soundFloat.textContent = "♪ music playing";
+    }).catch(function(){
+      soundFloat.classList.add("active");
+      soundFloat.textContent = "♪ tap play";
+    });
+  });
+});
+
+soundFloat.addEventListener("click",function(){
+  if(!selectedAudio){
+    document.getElementById("music").scrollIntoView({
+      behavior:"smooth"
+    });
+    return;
+  }
+
+  if(selectedAudio.paused){
+    selectedAudio.play().then(function(){
+      soundFloat.classList.add("active");
+      soundFloat.textContent = "♪ music playing";
+    });
+  }else{
+    selectedAudio.pause();
+  }
+});
+
+const sectionLinks = Array.from(
+  document.querySelectorAll(".desktop-nav a[href^='#']")
+);
+
+const observedSections = sectionLinks
+  .map(function(link){
+    return document.querySelector(link.getAttribute("href"));
+  })
+  .filter(Boolean);
+
+const sectionObserver = new IntersectionObserver(
+  function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        sectionLinks.forEach(function(link){
+          link.classList.remove("active");
+        });
+
+        const active = sectionLinks.find(function(link){
+          return link.getAttribute("href") === "#" + entry.target.id;
+        });
+
+        if(active){
+          active.classList.add("active");
+        }
+      }
+    });
+  },
+  {
+    rootMargin:"-30% 0px -55% 0px",
+    threshold:0
+  }
+);
+
+observedSections.forEach(function(section){
+  sectionObserver.observe(section);
+});
+
+document.querySelectorAll("a[href^='#']").forEach(function(link){
+  link.addEventListener("click",function(event){
+    const targetId = link.getAttribute("href");
+
+    if(targetId === "#"){
+      return;
+    }
+
+    const target = document.querySelector(targetId);
+
+    if(!target){
+      return;
+    }
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  });
+});
+
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+);
+
+if(prefersReducedMotion.matches){
+  document.querySelectorAll("*").forEach(function(element){
+    element.style.animationDuration = "0.001ms";
+    element.style.transitionDuration = "0.001ms";
+  });
+}
+
+window.addEventListener("resize",function(){
+  if(window.innerWidth > 950){
+    mobileNav.classList.remove("open");
+    document.body.classList.remove("modal-open");
+  }
+});
+
+document.querySelectorAll("video").forEach(function(video){
+  video.addEventListener("play",function(){
+    document.querySelectorAll("video").forEach(function(other){
+      if(other !== video){
+        other.pause();
+      }
+    });
+  });
+});
+
+function keepMusicUserInitiated(){
+  const audios = document.querySelectorAll("audio");
+
+  audios.forEach(function(audio){
+    audio.setAttribute("controlslist","nodownload");
+  });
+}
+
+keepMusicUserInitiated();
+
+window.addEventListener("load",function(){
+  const hash = window.location.hash;
+
+  if(hash){
+    const target = document.querySelector(hash);
+
+    if(target){
+      window.setTimeout(function(){
+        target.scrollIntoView({
+          behavior:"smooth"
+        });
+      },1000);
+    }
+  }
+});
+
+</script>
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail1: "chapter-1" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail2: "chapter-2" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail3: "chapter-3" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail4: "chapter-4" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail5: "chapter-5" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail6: "chapter-6" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail7: "chapter-7" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail8: "chapter-8" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail9: "chapter-9" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail10: "chapter-10" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail11: "chapter-11" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail12: "chapter-12" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail13: "chapter-13" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail14: "chapter-14" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail15: "chapter-15" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail16: "chapter-16" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail17: "chapter-17" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail18: "chapter-18" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail19: "chapter-19" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail20: "chapter-20" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail21: "chapter-21" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail22: "chapter-22" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail23: "chapter-23" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail24: "chapter-24" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail25: "chapter-25" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail26: "chapter-26" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail27: "chapter-27" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail28: "chapter-28" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail29: "chapter-29" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail30: "chapter-30" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail31: "chapter-31" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail32: "chapter-32" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail33: "chapter-33" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail34: "chapter-34" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail35: "chapter-35" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail36: "chapter-36" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail37: "chapter-37" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail38: "chapter-38" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail39: "chapter-39" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail40: "chapter-40" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail41: "chapter-41" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail42: "chapter-42" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail43: "chapter-43" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail44: "chapter-44" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail45: "chapter-45" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail46: "chapter-46" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail47: "chapter-47" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail48: "chapter-48" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail49: "chapter-49" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail50: "chapter-50" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail51: "chapter-51" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail52: "chapter-52" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail53: "chapter-53" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail54: "chapter-54" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail55: "chapter-55" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail56: "chapter-56" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail57: "chapter-57" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail58: "chapter-58" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail59: "chapter-59" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail60: "chapter-60" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail61: "chapter-61" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail62: "chapter-62" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail63: "chapter-63" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail64: "chapter-64" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail65: "chapter-65" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail66: "chapter-66" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail67: "chapter-67" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail68: "chapter-68" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail69: "chapter-69" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail70: "chapter-70" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail71: "chapter-71" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail72: "chapter-72" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail73: "chapter-73" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail74: "chapter-74" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail75: "chapter-75" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail76: "chapter-76" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail77: "chapter-77" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail78: "chapter-78" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail79: "chapter-79" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail80: "chapter-80" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail81: "chapter-81" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail82: "chapter-82" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail83: "chapter-83" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail84: "chapter-84" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail85: "chapter-85" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail86: "chapter-86" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail87: "chapter-87" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail88: "chapter-88" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail89: "chapter-89" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail90: "chapter-90" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail91: "chapter-91" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail92: "chapter-92" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail93: "chapter-93" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail94: "chapter-94" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail95: "chapter-95" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail96: "chapter-96" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail97: "chapter-97" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail98: "chapter-98" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail99: "chapter-99" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail100: "chapter-100" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail101: "chapter-101" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail102: "chapter-102" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail103: "chapter-103" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail104: "chapter-104" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail105: "chapter-105" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail106: "chapter-106" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail107: "chapter-107" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail108: "chapter-108" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail109: "chapter-109" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail110: "chapter-110" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail111: "chapter-111" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail112: "chapter-112" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail113: "chapter-113" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail114: "chapter-114" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail115: "chapter-115" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail116: "chapter-116" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail117: "chapter-117" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail118: "chapter-118" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail119: "chapter-119" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail120: "chapter-120" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail121: "chapter-121" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail122: "chapter-122" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail123: "chapter-123" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail124: "chapter-124" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail125: "chapter-125" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail126: "chapter-126" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail127: "chapter-127" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail128: "chapter-128" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail129: "chapter-129" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail130: "chapter-130" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail131: "chapter-131" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail132: "chapter-132" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail133: "chapter-133" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail134: "chapter-134" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail135: "chapter-135" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail136: "chapter-136" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail137: "chapter-137" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail138: "chapter-138" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail139: "chapter-139" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail140: "chapter-140" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail141: "chapter-141" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail142: "chapter-142" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail143: "chapter-143" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail144: "chapter-144" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail145: "chapter-145" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail146: "chapter-146" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail147: "chapter-147" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail148: "chapter-148" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail149: "chapter-149" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail150: "chapter-150" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail151: "chapter-151" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail152: "chapter-152" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail153: "chapter-153" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail154: "chapter-154" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail155: "chapter-155" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail156: "chapter-156" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail157: "chapter-157" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail158: "chapter-158" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail159: "chapter-159" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail160: "chapter-160" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail161: "chapter-161" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail162: "chapter-162" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail163: "chapter-163" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail164: "chapter-164" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail165: "chapter-165" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail166: "chapter-166" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail167: "chapter-167" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail168: "chapter-168" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail169: "chapter-169" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail170: "chapter-170" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail171: "chapter-171" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail172: "chapter-172" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail173: "chapter-173" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail174: "chapter-174" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail175: "chapter-175" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail176: "chapter-176" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail177: "chapter-177" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail178: "chapter-178" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail179: "chapter-179" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail180: "chapter-180" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail181: "chapter-181" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail182: "chapter-182" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail183: "chapter-183" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail184: "chapter-184" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail185: "chapter-185" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail186: "chapter-186" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail187: "chapter-187" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail188: "chapter-188" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail189: "chapter-189" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail190: "chapter-190" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail191: "chapter-191" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail192: "chapter-192" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail193: "chapter-193" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail194: "chapter-194" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail195: "chapter-195" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail196: "chapter-196" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail197: "chapter-197" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail198: "chapter-198" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail199: "chapter-199" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail200: "chapter-200" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail201: "chapter-201" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail202: "chapter-202" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail203: "chapter-203" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail204: "chapter-204" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail205: "chapter-205" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail206: "chapter-206" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail207: "chapter-207" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail208: "chapter-208" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail209: "chapter-209" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail210: "chapter-210" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail211: "chapter-211" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail212: "chapter-212" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail213: "chapter-213" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail214: "chapter-214" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail215: "chapter-215" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail216: "chapter-216" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail217: "chapter-217" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail218: "chapter-218" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail219: "chapter-219" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail220: "chapter-220" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail221: "chapter-221" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail222: "chapter-222" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail223: "chapter-223" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail224: "chapter-224" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail225: "chapter-225" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail226: "chapter-226" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail227: "chapter-227" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail228: "chapter-228" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail229: "chapter-229" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail230: "chapter-230" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail231: "chapter-231" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail232: "chapter-232" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail233: "chapter-233" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail234: "chapter-234" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail235: "chapter-235" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail236: "chapter-236" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail237: "chapter-237" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail238: "chapter-238" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail239: "chapter-239" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail240: "chapter-240" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail241: "chapter-241" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail242: "chapter-242" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail243: "chapter-243" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail244: "chapter-244" });
+window.SpecialPagesConfig = Object.assign(window.SpecialPagesConfig || {}, { anniversaryDetail245: "chapter-245" });
+</body>
+</html>
